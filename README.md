@@ -27,8 +27,8 @@
 |-------|----------|----------|
 | **Main Screen** | Main screen with monthly calendar and workout list | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/06fcb1eb-1423-4285-9960-cb79f035539f" width="60%"></div> |
 | **Create Workout** | Workout creation from template | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/6230f589-3b82-4151-8f61-9f7b294802dd" width="60%"></div> |
-| **Template Management** | Template creation and editing | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/6230f589-3b82-4151-8f61-9f7b294802dd" width="60%"></div> |
-| **Profile Screen** | View templates and statistics | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/6230f589-3b82-4151-8f61-9f7b294802dd" width="60%"></div> |
+| **Template Management** | Template creation and editing | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/013c902f-4227-4b8a-80a9-2b4bc8691174" width="60%"></div> |
+| **Profile Screen** | View templates and statistics | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/f3826c19-fbcf-40fd-a809-14d751c53f6f" width="60%"></div> |
 
 ---
 

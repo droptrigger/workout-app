@@ -1,6 +1,10 @@
 [English version](README.md)
 
+<div align="center">
+
 # 💪 WORKOUT APP
+
+</div>
 
 ### Мобильное приложение для тренировок
 
@@ -17,21 +21,14 @@
 
 ---
 
-## 🖼️ Превью
+### 🖼 Скриншоты приложения
 
-![Главный экран](https://github.com/user-attachments/assets/06fcb1eb-1423-4285-9960-cb79f035539f)  
-*Главный экран с календарем и списком тренировок*
-
-![Создание тренировки](https://github.com/user-attachments/assets/6230f589-3b82-4151-8f61-9f7b294802dd)  
-*Создание тренировки по шаблону*
-
-![Редактирование шаблонов](https://github.com/user-attachments/assets/6230f589-3b82-4151-8f61-9f7b294802dd)  
-*Создание и редактирование шаблонов*
-
-![Экран профиля](https://github.com/user-attachments/assets/6230f589-3b82-4151-8f61-9f7b294802dd)  
-*Просмотр шаблонов и статистики*
-
----
+| Экран | Описание | Скриншот |
+|-------|----------|----------|
+| **Главный экран** | Календарь тренировок и список запланированных занятий | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/06fcb1eb-1423-4285-9960-cb79f035539f" width="60%"></div> |
+| **Создание тренировки** | Выбор шаблона и настройка параметров тренировки | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/6230f589-3b82-4151-8f61-9f7b294802dd" width="60%"></div> |
+| **Редактор шаблонов** | Создание и редактирование персональных шаблонов тренировок | <div style="text-align: center;"><img src="hhttps://github.com/user-attachments/assets/013c902f-4227-4b8a-80a9-2b4bc8691174" width="60%"></div> |
+| **Профиль** | Статистика тренировок и управление шаблонами | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/f3826c19-fbcf-40fd-a809-14d751c53f6f" width="60%"></div> |
 
 ## 🚀 Как запустить
 
@@ -49,8 +46,7 @@
 
 ### 📁 Из файлов
 
-[Скачать APK](releases/latest.apk) (Android)  
-[Скачать IPA](releases/latest.ipa) (iOS)
+Пока что никак...
 
 ---
 
@@ -62,7 +58,3 @@
 - React Navigation  
 - Material Design иконки  
 - Адаптивная верстка
-
----
-
-Read in English → [README.en.md](README.en.md)
