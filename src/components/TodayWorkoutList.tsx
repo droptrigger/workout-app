@@ -78,7 +78,12 @@
     const handleToggleExercise = async (exerciseId: number, done: boolean) => {
       try {
         await toggleExerciseDone(exerciseId, done);
-        const dateStr = selectedDate.toISOString().split('T')[0];
+
+        const year = selectedDate.getFullYear();
+        const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+        const day = String(selectedDate.getDate()).padStart(2, '0');
+        const dateStr = `${year}-${month}-${day}`;
+
         const updatedWorkouts = await getWorkoutsByDate(dateStr);
         setWorkouts(updatedWorkouts);
       } catch (error) {
@@ -176,11 +181,7 @@
       backgroundColor: '#fff',
       borderRadius: 12,
       padding: 16,
-      marginBottom: 12,
-      shadowColor: '#000',
-      shadowOpacity: 0.05,
-      shadowRadius: 4,
-      elevation: 2,
+      marginBottom: 12
     },
     cardHeader: {
       flexDirection: 'row',

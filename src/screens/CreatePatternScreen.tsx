@@ -64,11 +64,11 @@ export default function CreatePatternScreen({ navigation }: any) {
         >
         <View style={styles.container}>
             <KeyboardAwareScrollView
-            style={styles.scrollContainer}
-            contentContainerStyle={styles.scrollContentContainer}
-            enableOnAndroid
-            extraScrollHeight={80}
-            keyboardShouldPersistTaps="handled"
+                style={styles.scrollContainer}
+                contentContainerStyle={styles.scrollContentContainer}
+                enableOnAndroid
+                extraScrollHeight={80}
+                keyboardShouldPersistTaps="handled"
             >
             <Text style={styles.title}>Создание шаблона</Text>
 
