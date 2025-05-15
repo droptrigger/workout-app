@@ -5,13 +5,13 @@ import {
     StyleSheet,
     ScrollView,
     SafeAreaView,
-    TouchableOpacity,
     ActivityIndicator,
     Alert
 } from 'react-native';
+import PatternCard from '../components/PatternCard';
 import { getDB, initDB } from '../db/db';
 import { getAllPatterns, deletePattern } from '../db/patternUtils';
-import { ProfileStats, Pattern, Exercise } from '../types/types';
+import { ProfileStats, Pattern } from '../types/types';
 import { useFocusEffect } from '@react-navigation/native';
 
 export default function ProfileScreen({ navigation }: any) {
@@ -51,26 +51,26 @@ export default function ProfileScreen({ navigation }: any) {
 
     const handleDeletePattern = async (id: number) => {
         try {
-        Alert.alert(
-            'Подтверждение',
-            'Вы уверены, что хотите удалить этот шаблон?',
-            [
-            {
-                text: 'Отмена',
-                style: 'cancel'
-            },
-            {
-                text: 'Удалить',
-                style: 'destructive',
-                onPress: async () => {
-                await deletePattern(id);
-                setPatterns(prev => prev.filter(p => p.id !== id));
+            Alert.alert(
+                'Подтверждение',
+                'Вы уверены, что хотите удалить этот шаблон?',
+                [
+                {
+                    text: 'Отмена',
+                    style: 'cancel'
+                },
+                {
+                    text: 'Удалить',
+                    style: 'destructive',
+                    onPress: async () => {
+                    await deletePattern(id);
+                    setPatterns(prev => prev.filter(p => p.id !== id));
+                    }
                 }
-            }
-            ]
-        );
+                ]
+            );
         } catch (error) {
-        console.error('Ошибка удаления шаблона:', error);
+            console.error('Ошибка удаления шаблона:', error);
         }
     };
 
@@ -97,12 +97,12 @@ export default function ProfileScreen({ navigation }: any) {
                 <ActivityIndicator size="large" color="#4CAF50" />
             ) : (
                 patterns.map(pattern => (
-                <PatternCard 
-                    key={pattern.id}
-                    pattern={pattern}
-                    onDelete={() => handleDeletePattern(pattern.id)}
-                    onEdit={() => navigation.navigate('EditPattern', { pattern })}
-                />
+                    <PatternCard 
+                        key={pattern.id}
+                        pattern={pattern}
+                        onDelete={() => handleDeletePattern(pattern.id)}
+                        onEdit={() => navigation.navigate('EditPattern', { pattern })}
+                    />
                 ))
             )}
             </View>
@@ -112,52 +112,19 @@ export default function ProfileScreen({ navigation }: any) {
     }
 
     function StatItem({ label, value }: { label: string; value: string | number }) {
-    return (
-        <View style={styles.statItem}>
-        <Text style={styles.statLabel}>{label}</Text>
-        <Text style={styles.statValue}>{value}</Text>
-        </View>
-    );
-    }
-
-    interface PatternCardProps {
-        pattern: Pattern;
-        onDelete: () => void;
-        onEdit: () => void;
-    }
-
-    const PatternCard: React.FC<PatternCardProps> = ({ pattern, onDelete, onEdit }) => {
-    return (
-        <View style={styles.patternCard}>
-            <Text style={styles.patternName}>{pattern.name}</Text>
-            {pattern.exercises.map((ex: Exercise) => (
-                <View key={ex.id} style={styles.exerciseRow}>
-                <View style={styles.checkbox} />
-                <Text style={styles.exerciseText}>{ex.exercise}</Text>
-                </View>
-            ))}
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity 
-                    style={[styles.actionButton, styles.editButton]}
-                    onPress={onEdit}
-                >
-                    <Text style={styles.actionButtonText}>Редактировать</Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    style={[styles.actionButton, styles.deleteButton]}
-                    onPress={onDelete}
-                >
-                    <Text style={styles.actionButtonText}>Удалить</Text>
-                </TouchableOpacity>
+        return (
+            <View style={styles.statItem}>
+                <Text style={styles.statLabel}>{label}</Text>
+                <Text style={styles.statValue}>{value}</Text>
             </View>
-        </View>
-    );
-};
+        );
+}
+
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#f5f5f5'
     },
     scrollContent: {
         flex: 1,
@@ -172,56 +139,7 @@ const styles = StyleSheet.create({
     },
     patternsContainer: {
         marginHorizontal: 16,
-        marginBottom: 20,
-    },
-    patternCard: {
-        backgroundColor: 'white',
-        padding: 16,
-        borderRadius: 8,
-        marginBottom: 12,
-    },
-    patternName: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginBottom: 8,
-    },
-    exerciseRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 4,
-    },
-    checkbox: {
-        width: 16,
-        height: 16,
-        borderWidth: 2,
-        borderColor: '#ccc',
-        borderRadius: 50,
-        marginRight: 8,
-    },
-    exerciseText: {
-        flex: 1,
-        fontSize: 14,
-    },
-    buttonContainer: {
-        marginTop: 12,
-    },
-    actionButton: {
-        borderRadius: 4,
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-        marginVertical: 4,
-    },
-    editButton: {
-        backgroundColor: '#4CAF50',
-    },
-    deleteButton: {
-        backgroundColor: '#ff4444',
-    },
-    actionButtonText: {
-        color: 'white',
-        textAlign: 'center',
-        fontSize: 14,
-        fontWeight: '500',
+        marginBottom: 15,
     },
     statItem: {
         flexDirection: 'row',
