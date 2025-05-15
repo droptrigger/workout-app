@@ -1,0 +1,78 @@
+export default {
+    trains: '训练',
+
+    monday: '周一',
+    tuesday: '周二',
+    wednesday: '周三',
+    thursday: '周四',
+    friday: '周五',
+    saturday: '周六',
+    sunday: '周日',
+
+    january: '一月',
+    february: '二月',
+    march: '三月',
+    april: '四月',
+    may: '五月',
+    june: '六月',
+    july: '七月',
+    august: '八月',
+    september: '九月',
+    october: '十月',
+    november: '十一月',
+    december: '十二月',
+
+    selectAMonth: '选择月份',
+    selectAYear: '选择年份',
+
+    workoutsFor: '训练计划 - ',
+    emptyWorkout: '此日期没有训练计划',
+    createWorkout: '创建训练',
+    addWorkout: '添加训练',
+
+    failedToLoadWorkouts: '无法加载训练计划',
+    deletingWorkout: '删除训练',
+    deletingWorkoutMessage: '确定要删除这个训练吗？',
+    failedDeletingWorkout: '删除训练失败',
+    failedUpdateStatusExercise: '无法更新练习状态',
+    failedCreateWorkout: '创建训练失败',
+
+    templateSelection: '模板选择',
+    exercisesCount: '练习动作：',
+    emptyTemplatesSelect: '暂无可用模板',
+    couldNotSelectTempalte: '无法选择模板',
+    
+    addTemplate: '添加模板',
+    nameTemplate: '名称',
+    placeholderNameTemplate: '模板名称',
+    exercisesTemplate: '练习动作',
+    placeholderExercisesTempalte: '动作 ',
+    addExerciseTemplate: '+ 添加动作',
+    
+    errorEnterName: '请输入模板名称',
+    errorAddExercise: '请至少添加一个练习动作',
+    successfullyCreateTemplateMessage: '您已成功创建模板 ',
+    saveChangesEdit: '保存修改',
+
+    profile: '个人资料',
+    statistics: '统计数据',
+    totalTraining: '总训练次数',
+    templatesCreated: '已创建模板',
+    trainingTemplates: '训练模板',
+    emptyTemplates: '尚未创建任何模板',
+    confirmationDeleteTemplate: '确定要删除这个模板吗？',
+    
+    teplateEditing: '模板编辑',
+    editTemplate: '编辑',
+    successfullyEditTemplate: '模板更新成功',
+    failEditTemaplte: '模板更新失败',
+
+    confirmation: '确认',
+    confirm: '确认',
+    ok: '确定',
+    error: '错误',
+    cancel: '取消',
+    delete: '删除',
+    done: '完成',
+    successfully: '成功！'
+};
