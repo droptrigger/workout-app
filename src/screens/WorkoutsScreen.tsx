@@ -64,14 +64,13 @@ const WorkoutsScreen = ({ navigation }: WorkoutsScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
   },
   sliderContainer: {
-    height: 70,
+    paddingHorizontal: 15,
   },
   listContainer: {
     flex: 1,
-    padding: 10,
+    paddingHorizontal: 15,
   },
 });
 

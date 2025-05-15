@@ -80,38 +80,40 @@ export default function EditPatternScreen({ navigation, route }: any) {
                     extraScrollHeight={80}
                     keyboardShouldPersistTaps="handled"
                 >
-                    <Text style={styles.title}>Редактирование шаблона</Text>
+                    <View style={styles.card}>
+                        <Text style={styles.label}>Название</Text>
+                        <TextInput
+                            style={styles.input}
+                            value={name}
+                            onChangeText={setName}
+                            placeholder="Название шаблона"
+                        />
+                    </View>
 
-                    <Text style={styles.label}>Название</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={name}
-                        onChangeText={setName}
-                        placeholder="Название тренировки"
-                    />
+                    <View style={styles.card}>
+                        <Text style={styles.label}>Упражнения</Text>
+                        {exercises.map((ex, index) => (
+                            <View key={index} style={styles.exerciseRow}>
+                                <TextInput
+                                    style={styles.exerciseInput}
+                                    value={ex}
+                                    onChangeText={(text) => updateExercise(index, text)}
+                                    placeholder={`Упражнение ${index + 1}`}
+                                    multiline
+                                />
+                                <TouchableOpacity 
+                                    onPress={() => removeExercise(index)} 
+                                    style={styles.deleteButton}
+                                >
+                                    <Text style={styles.deleteButtonText}>✕</Text>
+                                </TouchableOpacity>
+                            </View>
+                        ))}
 
-                    <Text style={styles.label}>Упражнения</Text>
-                    {exercises.map((ex, index) => (
-                        <View key={index} style={styles.exerciseRow}>
-                            <TextInput
-                                style={styles.exerciseInput}
-                                value={ex}
-                                onChangeText={(text) => updateExercise(index, text)}
-                                placeholder={`Упражнение ${index + 1}`}
-                                multiline
-                            />
-                            <TouchableOpacity 
-                                onPress={() => removeExercise(index)} 
-                                style={styles.deleteButton}
-                            >
-                                <Text style={styles.deleteButtonText}>✕</Text>
-                            </TouchableOpacity>
-                        </View>
-                    ))}
-
-                    <TouchableOpacity onPress={addExercise}>
-                        <Text style={styles.addText}>+ Добавить упражнение</Text>
-                    </TouchableOpacity>
+                        <TouchableOpacity onPress={addExercise}>
+                            <Text style={styles.addText}>+ Добавить упражнение</Text>
+                        </TouchableOpacity>
+                    </View>
                 </KeyboardAwareScrollView>
 
                 <TouchableOpacity style={styles.button} onPress={handleUpdate}>
@@ -129,15 +131,22 @@ const styles = StyleSheet.create({
     },
     scrollContainer: {
         flex: 1,
-        paddingHorizontal: 20,
+        paddingHorizontal: 15,
+    },
+    card: {
+      backgroundColor: '#fff',
+      borderRadius: 12,
+      padding: 16,
+      marginBottom: 12
     },
     scrollContentContainer: {
         paddingBottom: 100,
-        paddingTop: 20,
+        paddingTop: 10,
     },
     label: {
         fontWeight: 'bold',
         marginBottom: 8,
+        fontSize: 17
     },
     title: {
         fontSize: 20,

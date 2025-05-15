@@ -46,19 +46,18 @@ const SelectPatternScreen = ({ navigation, route }: any) => {
 
     const renderItem = ({ item }: { item: Pattern }) => (
         <TouchableOpacity
-        style={[styles.patternItem, processing && styles.disabledItem]}
-        onPress={() => !processing && handleSelectPattern(item)}
-        disabled={processing}
+            style={[styles.patternItem, processing && styles.disabledItem]}
+            onPress={() => !processing && handleSelectPattern(item)}
+            disabled={processing}
         >
         {processing && <ActivityIndicator style={styles.loadingIndicator} color="#4CAF50" />}
         <Text style={styles.patternName}>{item.name}</Text>
-        <Text style={styles.exerciseCount}>{item.exercises.length} упражнений</Text>
+        <Text style={styles.exerciseCount}>Упражнений: {item.exercises.length}</Text>
         </TouchableOpacity>
     );
 
     return (
         <View style={styles.container}>
-        <Text style={styles.title}>Выберите шаблон</Text>
         {loading ? (
             <ActivityIndicator size="large" color="#4CAF50" />
         ) : patterns.length === 0 ? (
@@ -92,10 +91,6 @@ const styles = StyleSheet.create({
         padding: 16,
         borderRadius: 8,
         marginBottom: 12,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 2,
         position: 'relative',
     },
     patternName: {

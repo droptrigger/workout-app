@@ -59,8 +59,8 @@ export default function CreatePatternScreen({ navigation }: any) {
 
     return (
         <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
         <View style={styles.container}>
             <KeyboardAwareScrollView
@@ -70,42 +70,44 @@ export default function CreatePatternScreen({ navigation }: any) {
                 extraScrollHeight={80}
                 keyboardShouldPersistTaps="handled"
             >
-            <Text style={styles.title}>Создание шаблона</Text>
-
-            <Text style={styles.label}>Название</Text>
-            <TextInput
-                style={styles.input}
-                value={name}
-                onChangeText={(text) => {
-                setName(text);
-                setIsModified(true);
-                }}
-                placeholder="Название тренировки"
-            />
-
-            <Text style={styles.label}>Упражнения</Text>
-            {exercises.map((ex, index) => (
-                <View key={index} style={styles.exerciseRow}>
+            <View style={styles.card}>
+                <Text style={styles.label}>Название</Text>
                 <TextInput
-                    style={styles.exerciseInput}
-                    value={ex}
-                    onChangeText={(text) => updateExercise(index, text)}
-                    placeholder={`Упражнение ${index + 1}`}
-                    multiline
+                    style={styles.input}
+                    value={name}
+                    onChangeText={(text) => {
+                    setName(text);
+                    setIsModified(true);
+                    }}
+                    placeholder="Название шаблона"
                 />
-                <TouchableOpacity onPress={() => removeExercise(index)} style={styles.deleteButton}>
-                    <Text style={styles.deleteButtonText}>✕</Text>
+            </View>
+
+            <View style={styles.card}>
+                <Text style={styles.label}>Упражнения</Text>
+                {exercises.map((ex, index) => (
+                    <View key={index} style={styles.exerciseRow}>
+                    <TextInput
+                        style={styles.exerciseInput}
+                        value={ex}
+                        onChangeText={(text) => updateExercise(index, text)}
+                        placeholder={`Упражнение ${index + 1}`}
+                        multiline
+                    />
+                    <TouchableOpacity onPress={() => removeExercise(index)} style={styles.deleteButton}>
+                        <Text style={styles.deleteButtonText}>✕</Text>
+                    </TouchableOpacity>
+                    </View>
+                ))}
+
+                <TouchableOpacity onPress={addExercise}>
+                    <Text style={styles.addText}>+ Добавить упражнение</Text>
                 </TouchableOpacity>
-                </View>
-            ))}
-
-            <TouchableOpacity onPress={addExercise}>
-                <Text style={styles.addText}>+ Добавить упражнение</Text>
-            </TouchableOpacity>
+            </View>
             </KeyboardAwareScrollView>
-
+            
             <TouchableOpacity style={styles.button} onPress={handleCreate}>
-            <Text style={styles.buttonText}>Продолжить</Text>
+                <Text style={styles.buttonText}>Продолжить</Text>
             </TouchableOpacity>
         </View>
         </KeyboardAvoidingView>
@@ -119,15 +121,22 @@ const styles = StyleSheet.create({
     },
     scrollContainer: {
         flex: 1,
-        paddingHorizontal: 20,
+        paddingHorizontal: 15,
+    },
+    card: {
+      backgroundColor: '#fff',
+      borderRadius: 12,
+      padding: 16,
+      marginBottom: 12
     },
     scrollContentContainer: {
         paddingBottom: 100,
-        paddingTop: 20,
+        paddingTop: 10,
     },
     label: {
         fontWeight: 'bold',
         marginBottom: 8,
+        fontSize: 17
     },
     title: {
         fontSize: 20,
