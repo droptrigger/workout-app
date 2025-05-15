@@ -6,6 +6,7 @@ import { NavigationProp } from '@react-navigation/native';
 import { getPatternById, getPatternWithExercises } from '../db/patternUtils';
 import { createWorkout } from '../db/workoutUtils';
 import { Pattern } from '../types/types';
+import i18n from '../localization/i18n';
 
 type WorkoutsScreenProps = {
   navigation: NavigationProp<any>;
@@ -33,7 +34,7 @@ const WorkoutsScreen = ({ navigation }: WorkoutsScreenProps) => {
       );
     } catch (error) {
       console.error('Ошибка создания тренировки:', error);
-      Alert.alert('Ошибка', 'Не удалось создать тренировку');
+      Alert.alert(i18n.t('error'), (i18n.t('failedCreateWorkout')));
     }
   };
 

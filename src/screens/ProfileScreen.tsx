@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -13,6 +13,7 @@ import { getDB, initDB } from '../db/db';
 import { getAllPatterns, deletePattern } from '../db/patternUtils';
 import { ProfileStats, Pattern } from '../types/types';
 import { useFocusEffect } from '@react-navigation/native';
+import i18n from '../localization/i18n';
 
 export default function ProfileScreen({ navigation }: any) {
     const [stats, setStats] = useState<ProfileStats>({
@@ -52,15 +53,15 @@ export default function ProfileScreen({ navigation }: any) {
     const handleDeletePattern = async (id: number) => {
         try {
             Alert.alert(
-                'Подтверждение',
-                'Вы уверены, что хотите удалить этот шаблон?',
+                i18n.t('confirmation'),
+                i18n.t('confirmationDeleteTemplate'),
                 [
                 {
-                    text: 'Отмена',
+                    text: i18n.t('cancel'),
                     style: 'cancel'
                 },
                 {
-                    text: 'Удалить',
+                    text: i18n.t('delete'),
                     style: 'destructive',
                     onPress: async () => {
                     await deletePattern(id);
@@ -78,25 +79,25 @@ export default function ProfileScreen({ navigation }: any) {
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollContent}>
                 <View style={styles.statsContainer}>
-                <Text style={styles.sectionTitle}>Статистика</Text>
+                <Text style={styles.sectionTitle}>{i18n.t('statistics')}</Text>
                 
                 {loading ? (
                     <ActivityIndicator size="large" color="#4CAF50" />
                 ) : (
                     <>
-                        <StatItem label="Всего тренировок" value={stats.totalWorkouts} />
-                        <StatItem label="Создано шаблонов" value={patterns.length} />
+                        <StatItem label={i18n.t('totalTraining')} value={stats.totalWorkouts} />
+                        <StatItem label={i18n.t('templatesCreated')} value={patterns.length} />
                     </>
                 )}
                 </View>
 
                 <View style={styles.patternsContainer}>
-                    <Text style={styles.sectionTitle}>Шаблоны тренировок</Text>
+                    <Text style={styles.sectionTitle}>{i18n.t('trainingTemplates')}</Text>
                     
                     {loading ? ( <ActivityIndicator size="large" color="#4CAF50" />) : 
                     ( patterns.length === 0 ? (
                         <View style={styles.emptyContainer}>
-                            <Text style={styles.emptyText}>Вы не создали ни одного шаблона</Text>
+                            <Text style={styles.emptyText}>{i18n.t('emptyTemplates')}</Text>
                         </View>
                     ) : (
                         patterns.map(pattern => (

@@ -13,6 +13,7 @@ import { Workout, WorkoutExercise } from '../types/types';
 import { getWorkoutsByDate, deleteWorkout } from '../db/workoutUtils';
 import Checkbox from 'expo-checkbox';
 import { toggleExerciseDone } from '../db/workoutUtils';
+import i18n from '../localization/i18n';
 
 interface Props {
   selectedDate: Date;
@@ -36,7 +37,7 @@ const TodayWorkoutList: React.FC<Props> = ({ selectedDate, onCreateWorkout, refr
       const data = await getWorkoutsByDate(dateStr);
       setWorkouts(data);
     } catch (error) {
-      Alert.alert('Ошибка', 'Не удалось загрузить тренировки');
+      Alert.alert(i18n.t('error'), i18n.t('failedToLoadWorkouts'));
     } finally {
       setLoading(false);
     }
@@ -48,12 +49,12 @@ const TodayWorkoutList: React.FC<Props> = ({ selectedDate, onCreateWorkout, refr
 
   const handleDelete = async (workoutId: number) => {
     Alert.alert(
-      'Удаление тренировки',
-      'Вы уверены, что хотите удалить эту тренировку?',
+      i18n.t('deletingWorkout'),
+      i18n.t('deletingWorkoutMessage'),
       [
-        { text: 'Отмена', style: 'cancel' },
+        { text: i18n.t('cancel'), style: 'cancel' },
         {
-          text: 'Удалить',
+          text: i18n.t('delete'),
           style: 'destructive',
           onPress: async () => {
             try {
@@ -67,7 +68,7 @@ const TodayWorkoutList: React.FC<Props> = ({ selectedDate, onCreateWorkout, refr
               const updatedWorkouts = await getWorkoutsByDate(dateStr);
               setWorkouts(updatedWorkouts);
             } catch (error) {
-              Alert.alert('Ошибка', 'Не удалось удалить тренировку');
+              Alert.alert(i18n.t('error'), i18n.t('failedDeletingWorkout'));
             }
           }
         }
@@ -87,7 +88,7 @@ const TodayWorkoutList: React.FC<Props> = ({ selectedDate, onCreateWorkout, refr
       const updatedWorkouts = await getWorkoutsByDate(dateStr);
       setWorkouts(updatedWorkouts);
     } catch (error) {
-      Alert.alert('Ошибка', 'Не удалось обновить статус упражнения');
+      Alert.alert(i18n.t('error'), i18n.t('failedUpdateStatusExercise'));
     }
   };
 
@@ -136,17 +137,17 @@ const TodayWorkoutList: React.FC<Props> = ({ selectedDate, onCreateWorkout, refr
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        Тренировки на {selectedDate.toLocaleDateString('ru-RU')}
+        {i18n.t('workoutsFor')}{selectedDate.toLocaleDateString('ru-RU')}
       </Text>
       {workouts.length === 0 ? (
         <View style={styles.emptyContainer}>
-          <Text style={styles.emptyText}>Тренировок на эту дату нет</Text>
+          <Text style={styles.emptyText}>{i18n.t('emptyWorkout')}</Text>
           {!isPastDate(selectedDate) && (
             <TouchableOpacity
               style={styles.createButton}
               onPress={onCreateWorkout}
             >
-              <Text style={styles.buttonText}>Создать тренировку</Text>
+              <Text style={styles.buttonText}>{i18n.t('createWorkout')}</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -163,7 +164,7 @@ const TodayWorkoutList: React.FC<Props> = ({ selectedDate, onCreateWorkout, refr
                   style={styles.createButton}
                   onPress={onCreateWorkout}
                 >
-                  <Text style={styles.buttonText}>Добавить тренировку</Text>
+                  <Text style={styles.buttonText}>{i18n.t('addWorkout')}</Text>
                 </TouchableOpacity>
               ) : null
             }

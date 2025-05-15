@@ -9,8 +9,10 @@ import {
   Pressable,
   ScrollView,
 } from 'react-native';
+import i18n from '../localization/i18n';
 
-const WEEKDAYS = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+const WEEKDAYS = [i18n.t('sunday'), i18n.t('monday'), i18n.t('tuesday'), 
+  i18n.t('wednesday'), i18n.t('thursday'), i18n.t('friday'), i18n.t('sunday')];
 
 type DayItem = {
   date: Date;
@@ -19,8 +21,8 @@ type DayItem = {
 };
 
 const MONTH_LABELS = [
-  'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-  'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь',
+  i18n.t('january'), i18n.t('february'), i18n.t('march'), i18n.t('april'), i18n.t('may'), i18n.t('june'),
+  i18n.t('july'), i18n.t('august'), i18n.t('september'), i18n.t('october'), i18n.t('november'), i18n.t('december'),
 ];
 
 const getMonthDays = (year: number, month: number): DayItem[] => {
@@ -146,7 +148,7 @@ export default function MonthSlider({ onDateSelect }: Props) {
       >
         <Pressable style={styles.modalOverlay} onPress={() => setModalVisible(false)}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Выберите месяц</Text>
+            <Text style={styles.modalTitle}>{i18n.t('selectAMonth')}</Text>
             <FlatList
               horizontal
               data={MONTH_LABELS}
@@ -173,7 +175,7 @@ export default function MonthSlider({ onDateSelect }: Props) {
               )}
             />
 
-            <Text style={[styles.modalTitle, { marginTop: 20 }]}>Выберите год</Text>
+            <Text style={[styles.modalTitle, { marginTop: 20 }]}>{i18n.t('selectAYear')}</Text>
             <FlatList
               horizontal
               data={years}
@@ -204,7 +206,7 @@ export default function MonthSlider({ onDateSelect }: Props) {
               style={styles.modalButton}
               onPress={() => setModalVisible(false)}
             >
-              <Text style={styles.modalButtonText}>Готово</Text>
+              <Text style={styles.modalButtonText}>{i18n.t('done')}</Text>
             </TouchableOpacity>
           </View>
         </Pressable>

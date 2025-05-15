@@ -1,5 +1,6 @@
 import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
 import { Exercise, Pattern } from "../types/types";
+import i18n from "../localization/i18n";
 
 
 interface PatternCardProps {
@@ -23,13 +24,13 @@ const PatternCard: React.FC<PatternCardProps> = ({ pattern, onDelete, onEdit }) 
                     style={[styles.actionButton, styles.editButton]}
                     onPress={onEdit}
                 >
-                    <Text style={styles.actionButtonText}>Редактировать</Text>
+                    <Text style={styles.actionButtonText}>{i18n.t('editTemplate')}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
                     style={[styles.actionButton, styles.deleteButton]}
                     onPress={onDelete}
                 >
-                    <Text style={styles.actionButtonText}>Удалить</Text>
+                    <Text style={styles.actionButtonText}>{i18n.t('delete')}</Text>
                 </TouchableOpacity>
             </View>
         </View>

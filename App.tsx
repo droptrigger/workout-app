@@ -12,6 +12,7 @@ import ProfileScreen from './src/screens/ProfileScreen';
 import EditPatternScreen from './src/screens/EditPatternScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SelectPatternScreen from './src/screens/SelectPatternScreen';
+import i18n from './src/localization/i18n';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -26,7 +27,7 @@ const ProfileStack = () => (
     <Stack.Screen 
       name="EditPattern" 
       component={EditPatternScreen}
-      options={{ title: 'Редактирование шаблона' }}
+      options={{ title: i18n.t('teplateEditing') }}
     />
   </Stack.Navigator>
 );
@@ -41,7 +42,7 @@ const WorkoutStack = () => (
     <Stack.Screen
       name="SelectPattern"
       component={SelectPatternScreen}
-      options={{ title: 'Выбор шаблона' }}
+      options={{ title: i18n.t('templateSelection') }}
     />
   </Stack.Navigator>
 );
@@ -69,9 +70,9 @@ export default function App() {
             color: '#333',
           },
           tabBarIcon: ({ color, size }) => {
-            if (route.name === 'Тренировки') return <WorkoutsIcon color={color} size={size} />;
-            if (route.name === 'Добавить шаблон') return <PlusIcon color={color} size={size} />;
-            if (route.name === 'Профиль') return <ProfileIcon color={color} size={size} />;
+            if (route.name === i18n.t('trains')) return <WorkoutsIcon color={color} size={size} />;
+            if (route.name === i18n.t('addTemplate')) return <PlusIcon color={color} size={size} />;
+            if (route.name === i18n.t('profile')) return <ProfileIcon color={color} size={size} />;
             return null;
           },
           tabBarActiveTintColor: '#4CAF50',
@@ -79,9 +80,9 @@ export default function App() {
           tabBarStyle: { height: 80, paddingTop: 5 },
         })}
       >
-        <Tab.Screen name="Тренировки" component={WorkoutStack} />
-        <Tab.Screen name="Добавить шаблон" component={CreatePatternScreen} />
-        <Tab.Screen name="Профиль" component={ProfileStack} />
+        <Tab.Screen name={i18n.t('trains')} component={WorkoutStack} />
+        <Tab.Screen name={i18n.t('addTemplate')} component={CreatePatternScreen} />
+        <Tab.Screen name={i18n.t('profile')} component={ProfileStack} />
       </Tab.Navigator>
     </NavigationContainer>
   );

@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { getAllPatterns } from '../db/patternUtils';
 import { Pattern } from '../types/types';
+import i18n from '../localization/i18n';
 
 const SelectPatternScreen = ({ navigation, route }: any) => {
     const [patterns, setPatterns] = useState<Pattern[]>([]);
@@ -38,7 +39,7 @@ const SelectPatternScreen = ({ navigation, route }: any) => {
             onSelect(pattern);
             navigation.goBack();
         } catch (error) {
-            alert('Не удалось выбрать шаблон');
+            alert(i18n.t('couldNotSelectTempalte'));
         } finally {
             setProcessing(false);
         }
@@ -52,7 +53,7 @@ const SelectPatternScreen = ({ navigation, route }: any) => {
         >
         {processing && <ActivityIndicator style={styles.loadingIndicator} color="#4CAF50" />}
         <Text style={styles.patternName}>{item.name}</Text>
-        <Text style={styles.exerciseCount}>Упражнений: {item.exercises.length}</Text>
+        <Text style={styles.exerciseCount}>{i18n.t('exercisesCount')}{item.exercises.length}</Text>
         </TouchableOpacity>
     );
 
@@ -61,7 +62,7 @@ const SelectPatternScreen = ({ navigation, route }: any) => {
         {loading ? (
             <ActivityIndicator size="large" color="#4CAF50" />
         ) : patterns.length === 0 ? (
-            <Text style={styles.emptyText}>Нет доступных шаблонов</Text>
+            <Text style={styles.emptyText}>{i18n.t('emptyTemplatesSelect')}</Text>
         ) : (
             <FlatList
                 data={patterns}

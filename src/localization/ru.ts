@@ -1,0 +1,75 @@
+export default {
+    trains: 'Тренировки',
+
+    monday: 'ПН',
+    tuesday: 'ВТ',
+    wednesday: 'СР',
+    thursday: 'ЧТ',
+    friday: 'ПТ',
+    saturday: 'СБ',
+    sunday: 'ВС',
+
+    january: 'Январь',
+    february: 'Февраль',
+    march: 'Март',
+    april: 'Апрель',
+    may: 'Май',
+    june: 'Июнь',
+    july: 'Июль',
+    august: 'Август',
+    september: 'Сентябрь',
+    october: 'Октябрь',
+    november: 'Ноябрь',
+    december: 'Декабрь',
+
+    selectAMonth: 'Выберите месяц',
+    selectAYear: 'Выберите год',
+
+    workoutsFor: 'Тренировки на ',
+    emptyWorkout: 'Тренировок на эту дату нет',
+    createWorkout: 'Создать тренировку',
+    addWorkout: 'Добавить тренировку',
+
+    failedToLoadWorkouts: 'Не удалось загрузить тренировки',
+    deletingWorkout: 'Удаление тренировки',
+    deletingWorkoutMessage: 'Вы уверены, что хотите удалить эту тренировку?',
+    failedDeletingWorkout: 'Не удалось удалить тренировку',
+    failedUpdateStatusExercise: 'Не удалось обновить статус упражнения',
+
+    templateSelection: 'Выбор шаблона',
+    exercisesCount: 'Упражнений: ',
+    emptyTemplatesSelect: 'Нет доступных шаблонов',
+    couldNotSelectTempalte: 'Не удалось выбрать шаблон',
+
+    addTemplate: 'Добавить шаблон',
+    nameTemplate: 'Название',
+    placeholderNameTemplate: 'Название шаблона',
+    exercisesTemplate: 'Упражения',
+    placeholderExercisesTempalte: 'Упражнение ',
+    addExerciseTemplate: '+ Добавить упражнение',
+
+    errorEnterName: 'Введите название шаблона',
+    errorAddExercise: 'Добавьте хотя бы одно упражнение',
+    successfullyCreateTemplateMessage: 'Вы успешно создали шаблон ',
+
+    profile: 'Профиль',
+    statistics: 'Статистика',
+    totalTraining: 'Всего тренировок',
+    templatesCreated: 'Создано шаблонов',
+    trainingTemplates: 'Шаблоны тренировок',
+    emptyTemplates: 'Вы не создали ни одного шаблона',
+    confirmationDeleteTemplate: 'Вы уверены, что хотите удалить этот шаблон?',
+    
+    teplateEditing: 'Редактирование шаблона',
+    editTemplate: 'Редактировать',
+    successfullyEditTemplate: 'Шаблон успешно обновлен',
+
+    confirmation: 'Подтверждение',
+    confirm: 'Продолжить',
+    ok: 'ОК',
+    error: 'Ошибка',
+    cancel: 'Отмена',
+    delete: 'Удалить',
+    done: 'Готово',
+    successfully: 'Успешно!'
+};

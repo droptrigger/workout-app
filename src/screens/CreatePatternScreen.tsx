@@ -11,28 +11,25 @@ import {
 } from 'react-native';
 import { createPattern } from '../db/patternUtils';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import i18n from '../localization/i18n';
 
 export default function CreatePatternScreen({ navigation }: any) {
     const [name, setName] = useState('');
     const [exercises, setExercises] = useState<string[]>(['']);
-    const [isModified, setIsModified] = useState(false);
 
     const updateExercise = (index: number, value: string) => {
         const updated = [...exercises];
         updated[index] = value;
         setExercises(updated);
-        setIsModified(true);
     };
 
     const addExercise = () => {
         setExercises([...exercises, '']);
-        setIsModified(true);
     };
 
     const removeExercise = (index: number) => {
         const updated = exercises.filter((_, i) => i !== index);
         setExercises(updated);
-        setIsModified(true);
     };
 
     const handleCreate = async () => {
@@ -40,20 +37,19 @@ export default function CreatePatternScreen({ navigation }: any) {
         const trimmedExercises = exercises.map(e => e.trim()).filter(e => e !== '');
 
         if (!trimmedName) {
-        Alert.alert('Ошибка', 'Введите название шаблона');
+        Alert.alert(i18n.t('error'), i18n.t('errorEnterName'));
         return;
         }
 
         if (trimmedExercises.length === 0) {
-        Alert.alert('Ошибка', 'Добавьте хотя бы одно упражнение');
+        Alert.alert(i18n.t('error'), i18n.t('errorAddExercise'));
         return;
         }
 
         await createPattern(trimmedName, trimmedExercises);
-        Alert.alert('Успешно', `Вы успешно создали шаблон ${name}`);
+        Alert.alert(i18n.t('successfully'), `${i18n.t('successfullyCreateTemplateMessage')}${name}`);
         setName('');
         setExercises(['']);
-        setIsModified(false);
         navigation.goBack();
     };
 
@@ -71,27 +67,26 @@ export default function CreatePatternScreen({ navigation }: any) {
                 keyboardShouldPersistTaps="handled"
             >
             <View style={styles.card}>
-                <Text style={styles.label}>Название</Text>
+                <Text style={styles.label}>{i18n.t('nameTemplate')}</Text>
                 <TextInput
                     style={styles.input}
                     value={name}
                     onChangeText={(text) => {
                     setName(text);
-                    setIsModified(true);
                     }}
-                    placeholder="Название шаблона"
+                    placeholder={i18n.t('placeholderNameTemplate')}
                 />
             </View>
 
             <View style={styles.card}>
-                <Text style={styles.label}>Упражнения</Text>
+                <Text style={styles.label}>{i18n.t('exercisesTemplate')}</Text>
                 {exercises.map((ex, index) => (
                     <View key={index} style={styles.exerciseRow}>
                     <TextInput
                         style={styles.exerciseInput}
                         value={ex}
                         onChangeText={(text) => updateExercise(index, text)}
-                        placeholder={`Упражнение ${index + 1}`}
+                        placeholder={`${i18n.t('placeholderExercisesTempalte')}${index + 1}`}
                         multiline
                     />
                     <TouchableOpacity onPress={() => removeExercise(index)} style={styles.deleteButton}>
@@ -101,13 +96,13 @@ export default function CreatePatternScreen({ navigation }: any) {
                 ))}
 
                 <TouchableOpacity onPress={addExercise}>
-                    <Text style={styles.addText}>+ Добавить упражнение</Text>
+                    <Text style={styles.addText}>{i18n.t('addExerciseTemplate')}</Text>
                 </TouchableOpacity>
             </View>
             </KeyboardAwareScrollView>
             
             <TouchableOpacity style={styles.button} onPress={handleCreate}>
-                <Text style={styles.buttonText}>Продолжить</Text>
+                <Text style={styles.buttonText}>{i18n.t('confirm')}</Text>
             </TouchableOpacity>
         </View>
         </KeyboardAvoidingView>
