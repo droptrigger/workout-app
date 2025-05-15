@@ -136,12 +136,21 @@
             </TouchableOpacity>
           </View>
         ) : (
-          <FlatList
-            data={workouts}
-            renderItem={renderWorkoutItem}
-            keyExtractor={item => item.id.toString()}
-            contentContainerStyle={styles.listContent}
-          />
+          <View>
+            <FlatList
+              data={workouts}
+              renderItem={renderWorkoutItem}
+              keyExtractor={item => item.id.toString()}
+              contentContainerStyle={styles.listContent}
+            >
+            </FlatList>
+            <TouchableOpacity
+              style={styles.createButton}
+              onPress={onCreateWorkout}
+            >
+              <Text style={styles.buttonText}>Добавить тренировку</Text>
+            </TouchableOpacity>
+          </View>
         )}
       </View>
     );
@@ -221,7 +230,7 @@
       fontSize: 16,
     },
     listContent: {
-      paddingBottom: 20,
+      paddingBottom: 0,
     },
   });
 
