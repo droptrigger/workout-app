@@ -26,7 +26,7 @@ const ProfileStack = () => (
     <Stack.Screen 
       name="EditPattern" 
       component={EditPatternScreen}
-      options={{ title: 'Редактирование' }}
+      options={{ title: 'Редактирование шаблона' }}
     />
   </Stack.Navigator>
 );
@@ -63,19 +63,25 @@ export default function App() {
       <Tab.Navigator
         screenOptions={({ route }) => ({
           headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontSize: 18,
+            paddingBottom: 10,
+            fontWeight: 'bold',
+            color: '#333',
+          },
           tabBarIcon: ({ color, size }) => {
             if (route.name === 'Тренировки') return <WorkoutsIcon color={color} size={size} />;
-            if (route.name === 'Добавить') return <PlusIcon color={color} size={size} />;
+            if (route.name === 'Добавить шаблон') return <PlusIcon color={color} size={size} />;
             if (route.name === 'Профиль') return <ProfileIcon color={color} size={size} />;
             return null;
           },
           tabBarActiveTintColor: '#4CAF50',
           tabBarInactiveTintColor: '#888',
-          tabBarStyle: { height: 80 },
+          tabBarStyle: { height: 80, paddingTop: 5 },
         })}
       >
         <Tab.Screen name="Тренировки" component={WorkoutStack} />
-        <Tab.Screen name="Добавить" component={CreatePatternScreen} />
+        <Tab.Screen name="Добавить шаблон" component={CreatePatternScreen} />
         <Tab.Screen name="Профиль" component={ProfileStack} />
       </Tab.Navigator>
     </NavigationContainer>
