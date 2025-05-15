@@ -10,10 +10,12 @@ import {
 import { getAllPatterns } from '../db/patternUtils';
 import { Pattern } from '../types/types';
 
-const SelectPatternScreen = ({ navigation }: any) => {
+const SelectPatternScreen = ({ navigation, route }: any) => {
     const [patterns, setPatterns] = useState<Pattern[]>([]);
     const [loading, setLoading] = useState(true);
     const [processing, setProcessing] = useState(false);
+
+    const { onSelect } = route.params || {};
 
     useEffect(() => {
         const loadPatterns = async () => {
@@ -30,9 +32,11 @@ const SelectPatternScreen = ({ navigation }: any) => {
     }, []);
 
     const handleSelectPattern = async (pattern: Pattern) => {
-        setProcessing(true);
+        if (!onSelect) return;
+            setProcessing(true);
         try {
-            navigation.navigate('WorkoutMain', { patternId: pattern.id });
+            onSelect(pattern);
+            navigation.goBack();
         } catch (error) {
             alert('Не удалось выбрать шаблон');
         } finally {
@@ -61,10 +65,10 @@ const SelectPatternScreen = ({ navigation }: any) => {
             <Text style={styles.emptyText}>Нет доступных шаблонов</Text>
         ) : (
             <FlatList
-            data={patterns}
-            renderItem={renderItem}
-            keyExtractor={item => item.id.toString()}
-            contentContainerStyle={styles.listContent}
+                data={patterns}
+                renderItem={renderItem}
+                keyExtractor={item => item.id.toString()}
+                contentContainerStyle={styles.listContent}
             />
         )}
         </View>

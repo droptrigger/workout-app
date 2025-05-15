@@ -17,27 +17,34 @@
   interface Props {
     selectedDate: Date;
     onCreateWorkout: () => void;
+    refreshFlag?: number;
   }
 
-  const TodayWorkoutList: React.FC<Props> = ({ selectedDate, onCreateWorkout }) => {
+  const TodayWorkoutList: React.FC<Props> = ({ selectedDate, onCreateWorkout, refreshFlag }) => {
     const [workouts, setWorkouts] = useState<Workout[]>([]);
     const [loading, setLoading] = useState(true);
 
+    const loadWorkouts = async () => {
+      try {
+        setLoading(true);
+
+        const year = selectedDate.getFullYear();
+        const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+        const day = String(selectedDate.getDate()).padStart(2, '0');
+        const dateStr = `${year}-${month}-${day}`;
+
+        const data = await getWorkoutsByDate(dateStr);
+        setWorkouts(data);
+      } catch (error) {
+        Alert.alert('Ошибка', 'Не удалось загрузить тренировки');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     useEffect(() => {
-      const loadWorkouts = async () => {
-        try {
-          setLoading(true);
-          const dateStr = selectedDate.toISOString().split('T')[0];
-          const data = await getWorkoutsByDate(dateStr);
-          setWorkouts(data);
-        } catch (error) {
-          Alert.alert('Ошибка', 'Не удалось загрузить тренировки');
-        } finally {
-          setLoading(false);
-        }
-      };
       loadWorkouts();
-    }, [selectedDate]);
+    }, [selectedDate, refreshFlag]);
 
     const handleDelete = async (workoutId: number) => {
       Alert.alert(
@@ -51,7 +58,12 @@
             onPress: async () => {
               try {
                 await deleteWorkout(workoutId);
-                const dateStr = selectedDate.toISOString().split('T')[0];
+                
+                const year = selectedDate.getFullYear();
+                const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+                const day = String(selectedDate.getDate()).padStart(2, '0');
+                const dateStr = `${year}-${month}-${day}`;
+
                 const updatedWorkouts = await getWorkoutsByDate(dateStr);
                 setWorkouts(updatedWorkouts);
               } catch (error) {

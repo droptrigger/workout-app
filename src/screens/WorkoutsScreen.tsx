@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import MonthSlider from '../components/MonthSlider';
 import TodayWorkoutList from '../components/TodayWorkoutList';
-import { NavigationProp, RouteProp, useRoute } from '@react-navigation/native';
+import { NavigationProp } from '@react-navigation/native';
 import { getPatternById, getPatternWithExercises } from '../db/patternUtils';
 import { createWorkout } from '../db/workoutUtils';
-import { WorkoutRouteParams } from '../types/types';
+import { Pattern } from '../types/types';
 
 type WorkoutsScreenProps = {
   navigation: NavigationProp<any>;
@@ -13,21 +13,13 @@ type WorkoutsScreenProps = {
 
 const WorkoutsScreen = ({ navigation }: WorkoutsScreenProps) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const route = useRoute<RouteProp<Record<string, WorkoutRouteParams>, string>>();
+  const [refreshFlag, setRefreshFlag] = useState(0);
 
-  useEffect(() => {
-    const { patternId } = route.params || {};
-    if (patternId) {
-      handleCreateWorkout(patternId);
-      navigation.setParams({ patternId: undefined });
-    }
-  }, [route.params]);
-
-  const handleCreateWorkout = async (patternId: number) => {
+  const handleCreateWorkout = async (patternId: number, date: Date) => {
     try {
-      const year = selectedDate.getFullYear();
-      const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
-      const day = String(selectedDate.getDate()).padStart(2, '0');
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
       const dateStr = `${year}-${month}-${day}`;
 
       const exercises = await getPatternWithExercises(patternId);
@@ -53,7 +45,16 @@ const WorkoutsScreen = ({ navigation }: WorkoutsScreenProps) => {
       <View style={styles.listContainer}>
         <TodayWorkoutList
           selectedDate={selectedDate}
-          onCreateWorkout={() => navigation.navigate('SelectPattern')}
+          onCreateWorkout={() =>
+            navigation.navigate('SelectPattern', {
+              onSelect: (pattern: Pattern) => {
+                handleCreateWorkout(pattern.id, selectedDate).then(() => {
+                  setRefreshFlag(prev => prev + 1);
+                });
+              },
+            })
+          }
+          refreshFlag={refreshFlag} 
         />
       </View>
     </View>
