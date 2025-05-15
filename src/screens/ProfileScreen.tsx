@@ -76,37 +76,40 @@ export default function ProfileScreen({ navigation }: any) {
 
     return (
         <SafeAreaView style={styles.container}>
-        <ScrollView style={styles.scrollContent}>
-            <View style={styles.statsContainer}>
-            <Text style={styles.sectionTitle}>Статистика</Text>
-            
-            {loading ? (
-                <ActivityIndicator size="large" color="#4CAF50" />
-            ) : (
-                <>
-                    <StatItem label="Всего тренировок" value={stats.totalWorkouts} />
-                    <StatItem label="Создано шаблонов" value={patterns.length} />
-                </>
-            )}
-            </View>
+            <ScrollView style={styles.scrollContent}>
+                <View style={styles.statsContainer}>
+                <Text style={styles.sectionTitle}>Статистика</Text>
+                
+                {loading ? (
+                    <ActivityIndicator size="large" color="#4CAF50" />
+                ) : (
+                    <>
+                        <StatItem label="Всего тренировок" value={stats.totalWorkouts} />
+                        <StatItem label="Создано шаблонов" value={patterns.length} />
+                    </>
+                )}
+                </View>
 
-            <View style={styles.patternsContainer}>
-            <Text style={styles.sectionTitle}>Шаблоны тренировок</Text>
-            
-            {loading ? (
-                <ActivityIndicator size="large" color="#4CAF50" />
-            ) : (
-                patterns.map(pattern => (
-                    <PatternCard 
-                        key={pattern.id}
-                        pattern={pattern}
-                        onDelete={() => handleDeletePattern(pattern.id)}
-                        onEdit={() => navigation.navigate('EditPattern', { pattern })}
-                    />
-                ))
-            )}
-            </View>
-        </ScrollView>
+                <View style={styles.patternsContainer}>
+                    <Text style={styles.sectionTitle}>Шаблоны тренировок</Text>
+                    
+                    {loading ? ( <ActivityIndicator size="large" color="#4CAF50" />) : 
+                    ( patterns.length === 0 ? (
+                        <View style={styles.emptyContainer}>
+                            <Text style={styles.emptyText}>Вы не создали ни одного шаблона</Text>
+                        </View>
+                    ) : (
+                        patterns.map(pattern => (
+                            <PatternCard 
+                                key={pattern.id}
+                                pattern={pattern}
+                                onDelete={() => handleDeletePattern(pattern.id)}
+                                onEdit={() => navigation.navigate('EditPattern', { pattern })}
+                            />
+                        ))
+                    ))}
+                </View>
+            </ScrollView>
         </SafeAreaView>
     );
     }
@@ -140,6 +143,7 @@ const styles = StyleSheet.create({
     patternsContainer: {
         marginHorizontal: 16,
         marginBottom: 15,
+        flex: 1
     },
     statItem: {
         flexDirection: 'row',
@@ -160,5 +164,16 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 12,
+    },
+    emptyText: {
+        fontSize: 16,
+        color: '#888',
+        textAlign: 'center',
+    },
+    emptyContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: 200, 
     },
 });

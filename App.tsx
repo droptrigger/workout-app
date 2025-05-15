@@ -64,8 +64,7 @@ export default function App() {
         screenOptions={({ route }) => ({
           headerTitleAlign: 'center',
           headerTitleStyle: {
-            fontSize: 18,
-            paddingBottom: 10,
+            fontSize: 16,
             fontWeight: 'bold',
             color: '#333',
           },

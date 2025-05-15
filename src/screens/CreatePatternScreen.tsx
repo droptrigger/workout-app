@@ -177,14 +177,15 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: '#4CAF50',
-        padding: 16,
+        padding: 15,
         borderRadius: 10,
         alignItems: 'center',
-        marginInline: 10,
+        marginInline: 15,
         marginBottom: 10,
     },
     buttonText: {
         color: '#fff',
         fontSize: 18,
+        fontWeight: 'bold',
     },
 });
