@@ -23,12 +23,13 @@
 
 ### 🖼 Скриншоты приложения
 
-| Экран | Описание | Скриншот |
-|-------|----------|----------|
-| **Главный экран** | Календарь тренировок и список запланированных занятий | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/06fcb1eb-1423-4285-9960-cb79f035539f" width="60%"></div> |
-| **Создание тренировки** | Выбор шаблона и настройка параметров тренировки | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/6230f589-3b82-4151-8f61-9f7b294802dd" width="60%"></div> |
-| **Редактор шаблонов** | Создание и редактирование персональных шаблонов тренировок | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/013c902f-4227-4b8a-80a9-2b4bc8691174" width="60%"></div> |
-| **Профиль** | Статистика тренировок и управление шаблонами | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/f3826c19-fbcf-40fd-a809-14d751c53f6f" width="60%"></div> |
+| Экран | Описание | Светлая тема | Тёмная тема |
+|-------|----------|----------|----------|
+| **Главный экран** | Календарь тренировок и список запланированных занятий | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/fa31d0fb-2b03-4ff4-a068-ba955a1389b3" width="60%"></div> | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/7e169218-ed8c-4a4b-b820-2f03e9263586" width="60%"></div> |
+| **Создание тренировки** | Выбор шаблона и настройка параметров тренировки | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/97ad41f2-511e-46bf-b4f7-98a32b8d6806" width="60%"></div> | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/d75dd3c5-e4de-4a97-8e00-47e7e3181618" width="60%"></div> |
+| **Просмотр даты** | Выбор месяца и года | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/7fee6701-c18d-413b-8573-bf54480b71c7" width="60%"></div> | <div style="text-align: center;"><img src="hhttps://github.com/user-attachments/assets/b4a70525-8865-4912-9164-da216926e1eb" width="60%"></div> |
+| **Редактор шаблонов** | Создание и редактирование персональных шаблонов тренировок | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/96de9dd8-c8e7-4824-93fb-e2a816aece66" width="60%"></div> | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/5d979a96-20fa-453e-b0b6-6172a62dd32e" width="60%"></div> |
+| **Профиль** | Статистика тренировок, переключение темы и управление шаблонами | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/6e1c2a95-c9f7-4560-b350-3e187e26dc3d" width="60%"></div> | <div style="text-align: center;"><img src="https://github.com/user-attachments/assets/89f67ad4-6e8c-485e-895b-23d1c1f5d64a" width="60%"></div> |
 
 ## 🚀 Как запустить
 
