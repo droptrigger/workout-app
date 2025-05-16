@@ -1,6 +1,7 @@
 import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
 import { Exercise, Pattern } from "../types/types";
 import i18n from "../localization/i18n";
+import { useTheme } from "../theme/ThemeContext";
 
 
 interface PatternCardProps {
@@ -10,6 +11,62 @@ interface PatternCardProps {
 }
    
 const PatternCard: React.FC<PatternCardProps> = ({ pattern, onDelete, onEdit }) => {
+    const { mode, setMode, theme } = useTheme();
+
+    const styles = StyleSheet.create({
+        patternCard: {
+            backgroundColor: theme.card,
+            padding: 16,
+            borderRadius: 8,
+            marginBottom: 12,
+        },
+        patternName: {
+            fontSize: 16,
+            fontWeight: 'bold',
+            marginBottom: 10,
+            color: theme.primary
+        },
+        exerciseRow: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 4,
+        },
+        checkbox: {
+            width: 16,
+            height: 16,
+            borderWidth: 2,
+            borderColor: '#ccc',
+            borderRadius: 50,
+            marginRight: 8,
+        },
+        exerciseText: {
+            flex: 1,
+            fontSize: 14,
+            color: theme.header
+        },
+        buttonContainer: {
+            marginTop: 7,
+        },
+        actionButton: {
+            borderRadius: 5,
+            paddingVertical: 10,
+            paddingHorizontal: 16,
+            marginVertical: 4,
+        },
+        editButton: {
+            backgroundColor: '#4CAF50',
+        },
+        deleteButton: {
+            backgroundColor: '#ff4444',
+        },
+        actionButtonText: {
+            color: 'white',
+            textAlign: 'center',
+            fontSize: 14,
+            fontWeight: '500',
+        },
+    })
+
     return (
         <View style={styles.patternCard}>
             <Text style={styles.patternName}>{pattern.name}</Text>
@@ -38,55 +95,3 @@ const PatternCard: React.FC<PatternCardProps> = ({ pattern, onDelete, onEdit }) 
 };
 
 export default PatternCard;
-
-const styles = StyleSheet.create({
-    patternCard: {
-        backgroundColor: 'white',
-        padding: 16,
-        borderRadius: 8,
-        marginBottom: 12,
-    },
-    patternName: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-        exerciseRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 4,
-    },
-    checkbox: {
-        width: 16,
-        height: 16,
-        borderWidth: 2,
-        borderColor: '#ccc',
-        borderRadius: 50,
-        marginRight: 8,
-    },
-    exerciseText: {
-        flex: 1,
-        fontSize: 14,
-    },
-    buttonContainer: {
-        marginTop: 7,
-    },
-    actionButton: {
-        borderRadius: 5,
-        paddingVertical: 10,
-        paddingHorizontal: 16,
-        marginVertical: 4,
-    },
-    editButton: {
-        backgroundColor: '#4CAF50',
-    },
-    deleteButton: {
-        backgroundColor: '#ff4444',
-    },
-    actionButtonText: {
-        color: 'white',
-        textAlign: 'center',
-        fontSize: 14,
-        fontWeight: '500',
-    },
-})

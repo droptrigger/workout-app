@@ -7,9 +7,9 @@ import {
   StyleSheet,
   Modal,
   Pressable,
-  ScrollView,
 } from 'react-native';
 import i18n from '../localization/i18n';
+import { useTheme } from '../theme/ThemeContext';
 
 const WEEKDAYS = [i18n.t('sunday'), i18n.t('monday'), i18n.t('tuesday'), 
   i18n.t('wednesday'), i18n.t('thursday'), i18n.t('friday'), i18n.t('sunday')];
@@ -43,6 +43,7 @@ type Props = {
 };
 
 export default function MonthSlider({ onDateSelect }: Props) {
+  const { mode, setMode, theme } = useTheme();
   const today = new Date();
 
   const years = useMemo(() => {
@@ -83,6 +84,116 @@ export default function MonthSlider({ onDateSelect }: Props) {
       onDateSelect?.(days[0]?.date);
     }
   }, []);
+
+  const styles = StyleSheet.create({ 
+    monthCard: {
+      backgroundColor: theme.card,
+      borderRadius: 20,
+      paddingBottom: 10,
+      marginTop: 10
+    },
+    selectButton: {
+      alignSelf: 'center',
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      backgroundColor: '#4CAF50',
+      width: '100%',
+      borderTopStartRadius: 20,
+      borderTopEndRadius: 20,
+    },
+    selectButtonText: {
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: 16,
+    },
+    list: {
+      paddingHorizontal: 10,
+      paddingTop: 15,
+    },
+    itemContainer: {
+      alignItems: 'center',
+      marginHorizontal: 6,
+      width: 44,
+    },
+    dayLabel: {
+      color: '#888',
+      fontSize: 12,
+      fontWeight: '600',
+      marginBottom: 4,
+    },
+    dayNumber: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: theme.dayText,
+    },
+    circle: {
+      width: CIRCLE_SIZE,
+      height: CIRCLE_SIZE,
+      borderRadius: 100,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'transparent',
+    },
+    selectedCircle: {
+      backgroundColor: '#4CAF50',
+      borderRadius: 100,
+    },
+    selectedText: {
+      color: '#fff',
+      fontWeight: 'bold',
+    },
+    modalOverlay: {
+      flex: 1,
+      backgroundColor: 'rgba(0,0,0,0.4)',
+      justifyContent: 'center',
+      paddingHorizontal: 20,
+    },
+    modalContent: {
+      backgroundColor: theme.background,
+      borderRadius: 15,
+      padding: 20,
+      maxHeight: '80%',
+    },
+    modalTitle: {
+      fontWeight: 'bold',
+      fontSize: 18,
+      marginBottom: 5,
+      color: theme.text
+    },
+    modalItem: {
+      paddingVertical: 8,
+      paddingHorizontal: 14,
+      marginHorizontal: 3,
+      borderRadius: 30,
+      borderWidth: 2,
+      borderColor: '#ddd',
+      backgroundColor: theme.backgroundModalItem,
+    },
+    modalItemSelected: {
+      backgroundColor: '#4CAF50',
+      borderColor: '#4CAF50',
+    },
+    modalItemText: {
+      color: '#555',
+      fontWeight: '500'
+    },
+    modalItemTextSelected: {
+      color: 'white',
+      fontWeight: 'bold',
+    },
+    modalButton: {
+      marginTop: 15,
+      backgroundColor: '#4CAF50',
+      paddingVertical: 12,
+      borderRadius: 25,
+      alignItems: 'center',
+    },
+    modalButtonText: {
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: 16,
+    },
+  });
 
   return (
     <View style={styles.monthCard}>
@@ -217,110 +328,3 @@ export default function MonthSlider({ onDateSelect }: Props) {
 
 const CIRCLE_SIZE = 36;
 
-const styles = StyleSheet.create({
-  monthCard: {
-    backgroundColor: 'white',
-    borderRadius: 20,
-    paddingBottom: 10,
-    marginTop: 10
-  },
-  selectButton: {
-    alignSelf: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: '#4CAF50',
-    width: '100%',
-    borderTopStartRadius: 20,
-    borderTopEndRadius: 20,
-  },
-  selectButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  list: {
-    paddingHorizontal: 10,
-    paddingTop: 15,
-  },
-  itemContainer: {
-    alignItems: 'center',
-    marginHorizontal: 6,
-    width: 44,
-  },
-  dayLabel: {
-    color: '#888',
-    fontSize: 12,
-    fontWeight: '600',
-    marginBottom: 4,
-  },
-  dayNumber: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-  },
-  circle: {
-    width: CIRCLE_SIZE,
-    height: CIRCLE_SIZE,
-    borderRadius: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-  },
-  selectedCircle: {
-    backgroundColor: '#4CAF50',
-    borderRadius: 100,
-  },
-  selectedText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.4)',
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-  },
-  modalContent: {
-    backgroundColor: 'white',
-    borderRadius: 15,
-    padding: 20,
-    maxHeight: '80%',
-  },
-  modalTitle: {
-    fontWeight: 'bold',
-    fontSize: 18,
-    marginBottom: 5,
-  },
-  modalItem: {
-    paddingVertical: 8,
-    paddingHorizontal: 14,
-    marginHorizontal: 3,
-    borderRadius: 30,
-    borderWidth: 2,
-    borderColor: '#ddd',
-  },
-  modalItemSelected: {
-    backgroundColor: '#4CAF50',
-    borderColor: '#4CAF50',
-  },
-  modalItemText: {
-    color: '#555',
-    fontWeight: '500'
-  },
-  modalItemTextSelected: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  modalButton: {
-    marginTop: 15,
-    backgroundColor: '#4CAF50',
-    paddingVertical: 12,
-    borderRadius: 25,
-    alignItems: 'center',
-  },
-  modalButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-});

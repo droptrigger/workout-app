@@ -64,7 +64,7 @@ export default {
     emptyTemplates: 'No templates created yet',
     confirmationDeleteTemplate: 'Are you sure you want to delete this template?',
     
-    teplateEditing: 'Template Editing',
+    templateEditing: 'Template Editing',
     editTemplate: 'Edit',
     successfullyEditTemplate: 'The template has been successfully updated',
     failEditTemaplte: "Couldn't update template",
@@ -76,5 +76,11 @@ export default {
     cancel: 'Cancel',
     delete: 'Delete',
     done: 'Done',
-    successfully: 'Successfully!'
+    successfully: 'Successfully!',
+
+    theme: 'Theme',
+    lightTheme: '☀️ Light',
+    darkTheme: '🌑 Dark',
+
+    language: 'Language',
 };

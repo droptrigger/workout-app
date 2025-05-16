@@ -13,13 +13,15 @@ import {
 import { updatePattern, getPatternWithExercises } from '../db/patternUtils';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import i18n from '../localization/i18n';
+import { useTheme } from '../theme/ThemeContext';
 
 export default function EditPatternScreen({ navigation, route }: any) {
     const { pattern } = route.params;
     const [name, setName] = useState(pattern.name);
     const [exercises, setExercises] = useState<string[]>([]);
     const [initialExercises, setInitialExercises] = useState<string[]>([]);
-
+    const { mode, setMode, theme } = useTheme();
+    
     useEffect(() => {
         const loadExercises = async () => {
             const exList = await getPatternWithExercises(pattern.id);
@@ -67,6 +69,86 @@ export default function EditPatternScreen({ navigation, route }: any) {
             Alert.alert(i18n.t('error'), i18n.t('failEditTemaplte'));
         }
     };
+
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            justifyContent: 'space-between',
+            backgroundColor: theme.background
+        },
+        scrollContainer: {
+            flex: 1,
+            paddingHorizontal: 15,
+        },
+        card: {
+            backgroundColor: theme.card,
+            borderRadius: 12,
+            padding: 16,
+            marginBottom: 12
+        },
+        scrollContentContainer: {
+            paddingBottom: 100,
+            paddingTop: 10,
+        },
+        label: {
+            fontWeight: 'bold',
+            marginBottom: 8,
+            fontSize: 17,
+            color: theme.header
+        },
+        title: {
+            fontSize: 20,
+            marginBottom: 20,
+            textAlign: 'center',
+        },
+        input: {
+            borderWidth: 1,
+            borderColor: '#CCC',
+            padding: 10,
+            marginBottom: 12,
+            borderRadius: 5,
+            color: theme.header,
+        },
+        exerciseRow: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 8,
+        },
+        exerciseInput: {
+            flex: 1,
+            borderWidth: 1,
+            borderColor: '#CCC',
+            padding: 10,
+            borderRadius: 5,
+            color: theme.header
+        },
+        deleteButton: {
+            marginLeft: 10,
+            padding: 8,
+        },
+        deleteButtonText: {
+            fontSize: 18,
+            color: '#d00',
+        },
+        addText: {
+            color: '#4CAF50',
+            fontSize: 16,
+            marginTop: 10,
+        },
+        button: {
+            backgroundColor: '#4CAF50',
+            padding: 15,
+            borderRadius: 10,
+            alignItems: 'center',
+            marginInline: 15,
+            marginBottom: 10,
+        },
+        buttonText: {
+            color: '#fff',
+            fontSize: 18,
+            fontWeight: 'bold',
+        },
+    });
 
     return (
         <KeyboardAvoidingView
@@ -124,79 +206,3 @@ export default function EditPatternScreen({ navigation, route }: any) {
         </KeyboardAvoidingView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'space-between',
-    },
-    scrollContainer: {
-        flex: 1,
-        paddingHorizontal: 15,
-    },
-    card: {
-      backgroundColor: '#fff',
-      borderRadius: 12,
-      padding: 16,
-      marginBottom: 12
-    },
-    scrollContentContainer: {
-        paddingBottom: 100,
-        paddingTop: 10,
-    },
-    label: {
-        fontWeight: 'bold',
-        marginBottom: 8,
-        fontSize: 17
-    },
-    title: {
-        fontSize: 20,
-        marginBottom: 20,
-        textAlign: 'center',
-    },
-    input: {
-        borderWidth: 1,
-        borderColor: '#CCC',
-        padding: 10,
-        marginBottom: 12,
-        borderRadius: 5,
-    },
-    exerciseRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 8,
-    },
-    exerciseInput: {
-        flex: 1,
-        borderWidth: 1,
-        borderColor: '#CCC',
-        padding: 10,
-        borderRadius: 5,
-    },
-    deleteButton: {
-        marginLeft: 10,
-        padding: 8,
-    },
-    deleteButtonText: {
-        fontSize: 18,
-        color: '#d00',
-    },
-    addText: {
-        color: '#4CAF50',
-        fontSize: 16,
-        marginTop: 10,
-    },
-    button: {
-        backgroundColor: '#4CAF50',
-        padding: 15,
-        borderRadius: 10,
-        alignItems: 'center',
-        marginInline: 15,
-        marginBottom: 10,
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-});

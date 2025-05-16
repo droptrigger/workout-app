@@ -35,6 +35,7 @@ export default {
     deletingWorkoutMessage: 'Вы уверены, что хотите удалить эту тренировку?',
     failedDeletingWorkout: 'Не удалось удалить тренировку',
     failedUpdateStatusExercise: 'Не удалось обновить статус упражнения',
+    failedCreateWorkout: 'Не удалось создать тренировку',
 
     templateSelection: 'Выбор шаблона',
     exercisesCount: 'Упражнений: ',
@@ -47,6 +48,7 @@ export default {
     exercisesTemplate: 'Упражения',
     placeholderExercisesTempalte: 'Упражнение ',
     addExerciseTemplate: '+ Добавить упражнение',
+    saveChangesEdit: 'Сохранить изменения',
 
     errorEnterName: 'Введите название шаблона',
     errorAddExercise: 'Добавьте хотя бы одно упражнение',
@@ -60,9 +62,10 @@ export default {
     emptyTemplates: 'Вы не создали ни одного шаблона',
     confirmationDeleteTemplate: 'Вы уверены, что хотите удалить этот шаблон?',
     
-    teplateEditing: 'Редактирование шаблона',
+    templateEditing: 'Редактирование шаблона',
     editTemplate: 'Редактировать',
     successfullyEditTemplate: 'Шаблон успешно обновлен',
+    failEditTemaplte: 'Не удалось обновить шаблон',
 
     confirmation: 'Подтверждение',
     confirm: 'Продолжить',
@@ -71,5 +74,11 @@ export default {
     cancel: 'Отмена',
     delete: 'Удалить',
     done: 'Готово',
-    successfully: 'Успешно!'
+    successfully: 'Успешно!',
+
+    theme: 'Тема',
+    lightTheme: '☀️ Светлая',
+    darkTheme: '🌑 Тёмная',
+
+    language: 'Язык',
 };

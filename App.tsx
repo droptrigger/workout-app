@@ -1,51 +1,8 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { initDB } from './src/db/db';
-import WorkoutsScreen from './src/screens/WorkoutsScreen';
-import WorkoutsIcon from './src/components/icons/WorkoutsIcon';
-import PlusIcon from './src/components/icons/PlusIcon';
-import ProfileIcon from './src/components/icons/ProfileIcon';
-import CreatePatternScreen from './src/screens/CreatePatternScreen';
-import ProfileScreen from './src/screens/ProfileScreen';
-import EditPatternScreen from './src/screens/EditPatternScreen';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SelectPatternScreen from './src/screens/SelectPatternScreen';
-import i18n from './src/localization/i18n';
-
-const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
-
-const ProfileStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen 
-      name="ProfileMain" 
-      component={ProfileScreen}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen 
-      name="EditPattern" 
-      component={EditPatternScreen}
-      options={{ title: i18n.t('teplateEditing') }}
-    />
-  </Stack.Navigator>
-);
-
-const WorkoutStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name="WorkoutMain"
-      component={WorkoutsScreen}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen
-      name="SelectPattern"
-      component={SelectPatternScreen}
-      options={{ title: i18n.t('templateSelection') }}
-    />
-  </Stack.Navigator>
-);
+import { ThemeProvider, useTheme } from './src/theme/ThemeContext';
+import MainNavigation from './src/components/MainNavigation';
 
 export default function App() {
   const [dbReady, setDbReady] = useState(false);
@@ -60,30 +17,10 @@ export default function App() {
   if (!dbReady) return null;
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontSize: 16,
-            fontWeight: 'bold',
-            color: '#333',
-          },
-          tabBarIcon: ({ color, size }) => {
-            if (route.name === i18n.t('trains')) return <WorkoutsIcon color={color} size={size} />;
-            if (route.name === i18n.t('addTemplate')) return <PlusIcon color={color} size={size} />;
-            if (route.name === i18n.t('profile')) return <ProfileIcon color={color} size={size} />;
-            return null;
-          },
-          tabBarActiveTintColor: '#4CAF50',
-          tabBarInactiveTintColor: '#888',
-          tabBarStyle: { height: 80, paddingTop: 5 },
-        })}
-      >
-        <Tab.Screen name={i18n.t('trains')} component={WorkoutStack} />
-        <Tab.Screen name={i18n.t('addTemplate')} component={CreatePatternScreen} />
-        <Tab.Screen name={i18n.t('profile')} component={ProfileStack} />
-      </Tab.Navigator>
-    </NavigationContainer>
+
+    <ThemeProvider> 
+        <MainNavigation />
+    </ThemeProvider>
+
   );
 }

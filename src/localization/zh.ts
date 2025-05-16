@@ -62,7 +62,7 @@ export default {
     emptyTemplates: '尚未创建任何模板',
     confirmationDeleteTemplate: '确定要删除这个模板吗？',
     
-    teplateEditing: '模板编辑',
+    templateEditing: '模板编辑',
     editTemplate: '编辑',
     successfullyEditTemplate: '模板更新成功',
     failEditTemaplte: '模板更新失败',
@@ -74,5 +74,11 @@ export default {
     cancel: '取消',
     delete: '删除',
     done: '完成',
-    successfully: '成功！'
+    successfully: '成功！',
+
+    theme: '主题',
+    lightTheme: '☀️ 光',
+    darkTheme: '🌑 黑暗的',
+
+    language: '语言',
 };

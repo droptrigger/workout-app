@@ -7,6 +7,7 @@ import { getPatternById, getPatternWithExercises } from '../db/patternUtils';
 import { createWorkout } from '../db/workoutUtils';
 import { Pattern } from '../types/types';
 import i18n from '../localization/i18n';
+import { useTheme } from '../theme/ThemeContext';
 
 type WorkoutsScreenProps = {
   navigation: NavigationProp<any>;
@@ -15,7 +16,8 @@ type WorkoutsScreenProps = {
 const WorkoutsScreen = ({ navigation }: WorkoutsScreenProps) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [refreshFlag, setRefreshFlag] = useState(0);
-
+  const { mode, setMode, theme } = useTheme();
+  
   const handleCreateWorkout = async (patternId: number, date: Date) => {
     try {
       const year = date.getFullYear();
@@ -37,6 +39,20 @@ const WorkoutsScreen = ({ navigation }: WorkoutsScreenProps) => {
       Alert.alert(i18n.t('error'), (i18n.t('failedCreateWorkout')));
     }
   };
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.background
+    },
+    sliderContainer: {
+      paddingHorizontal: 15,
+    },
+    listContainer: {
+      flex: 1,
+      paddingHorizontal: 15,
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -61,18 +77,5 @@ const WorkoutsScreen = ({ navigation }: WorkoutsScreenProps) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  sliderContainer: {
-    paddingHorizontal: 15,
-  },
-  listContainer: {
-    flex: 1,
-    paddingHorizontal: 15,
-  },
-});
 
 export default WorkoutsScreen;
