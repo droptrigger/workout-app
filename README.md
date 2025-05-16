@@ -4,9 +4,11 @@
 
 # 💪 WORKOUT APP
 
+### Cross-platform mobile app for workout planning and tracking
+
 </div>
 
-### Cross-platform mobile app for workout planning and tracking
+
 
 ---
 

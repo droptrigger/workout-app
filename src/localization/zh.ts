@@ -81,4 +81,9 @@ export default {
     darkTheme: '🌑 黑暗的',
 
     language: '语言',
+
+    privacyPolicy: '隐私政策',
+    privacyPolicyFirst: '我们不会收集、共享或使用您的个人信息。所有训练数据仅存储在您的设备上。',
+    privacyPolicySecond: '通过使用此应用程序，您同意对您的数据负责。',
+    privacyPolicyConfirm: '我接受',
 };

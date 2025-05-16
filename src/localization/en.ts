@@ -83,4 +83,9 @@ export default {
     darkTheme: '🌑 Dark',
 
     language: 'Language',
+
+    privacyPolicy: 'Privacy Policy',
+    privacyPolicyFirst: 'We do not collect, share or use your personal data. All training data is stored only on your device.',
+    privacyPolicySecond: 'By using this application, you agree that you are responsible for your data.',
+    privacyPolicyConfirm: 'I accept',
 };

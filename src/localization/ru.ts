@@ -1,3 +1,5 @@
+import { PrivacyPolicyScreen } from "../screens/PrivacyPolicyScreen";
+
 export default {
     trains: 'Тренировки',
 
@@ -81,4 +83,9 @@ export default {
     darkTheme: '🌑 Тёмная',
 
     language: 'Язык',
+
+    privacyPolicy: 'Политика конфиденциальности',
+    privacyPolicyFirst: 'Мы не собираем, не передаём и не используем ваши личные данные. Все данные о тренировках хранятся только на вашем устройстве.',
+    privacyPolicySecond: 'Используя это приложение, вы соглашаетесь с тем, что несёте ответственность за свои данные.',
+    privacyPolicyConfirm: 'Принимаю',
 };
