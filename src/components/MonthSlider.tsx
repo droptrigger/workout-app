@@ -12,7 +12,7 @@ import i18n from '../localization/i18n';
 import { useTheme } from '../theme/ThemeContext';
 
 const WEEKDAYS = [i18n.t('sunday'), i18n.t('monday'), i18n.t('tuesday'), 
-  i18n.t('wednesday'), i18n.t('thursday'), i18n.t('friday'), i18n.t('sunday')];
+  i18n.t('wednesday'), i18n.t('thursday'), i18n.t('friday'), i18n.t('saturday')];
 
 type DayItem = {
   date: Date;
