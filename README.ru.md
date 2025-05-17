@@ -40,11 +40,11 @@
 ### 🧑‍💻 Из исходного кода
 
 1. Установите Node.js (если не установлен)
-2. Установите Expo CLI: `npm install -g expo-cli`
-3. Склонируйте репозиторий: `git clone https://github.com/droptrigger/workout-app.git`
-4. Перейдите в папку проекта: `cd workout-app`
+2. Склонируйте репозиторий: `git clone https://github.com/droptrigger/workout-app.git`
+3. Перейдите в папку проекта: `cd workout-app`
+4. Установите Expo CLI: `npm install -g expo-cli`
 5. Установите зависимости: `npm install`
-6. Запустите сервер: `npm expo start`
+6. Запустите сервер: `npx expo start`
 7. На телефоне:
    - Установите приложение **Expo Go**
    - Отсканируйте QR-код или откройте ссылку

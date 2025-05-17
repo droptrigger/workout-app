@@ -1,6 +1,7 @@
 import { PrivacyPolicyScreen } from "../screens/PrivacyPolicyScreen";
 
 export default {
+    loading: 'Загрузка',
     trains: 'Тренировки',
 
     monday: 'ПН',

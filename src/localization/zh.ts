@@ -1,4 +1,5 @@
 export default {
+    loading: '加载中',
     trains: '训练',
 
     monday: '周一',

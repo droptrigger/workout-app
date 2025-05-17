@@ -43,11 +43,11 @@
 ### 🧑‍💻 From Source Code
 
 1. Install Node.js (if not installed)
-2. Install Expo CLI: `npm install -g expo-cli`
-3. Clone repository: `git clone git clone https://github.com/droptrigger/workout-app.git`
-4. Navigate to project folder: `cd workout-app`
+2. Clone repository: `git clone git clone https://github.com/droptrigger/workout-app.git`
+3. Navigate to project folder: `cd workout-app`
+4. Install Expo CLI: `npm install -g expo-cli`
 5. Install dependencies: `npm install`
-6. Start development server: `npm expo start`
+6. Start development server: `npx expo start`
 7. On your phone:
    - Install **Expo Go** app
    - Scan QR code or open link

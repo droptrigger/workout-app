@@ -1,4 +1,5 @@
 export default {
+    loading: 'Loading',
     trains: 'Workouts',
 
     monday: 'MON',
