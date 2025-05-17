@@ -21,7 +21,7 @@ export default function App() {
   useEffect(() => {
     (async () => {
       await initDB();
-
+      setDbReady(true);
     })();
   }, []);
 
