@@ -82,6 +82,7 @@ export default {
     theme: 'Тема',
     lightTheme: '☀️ Светлая',
     darkTheme: '🌑 Тёмная',
+    systemTheme: '👀 Системная',
 
     language: 'Язык',
 

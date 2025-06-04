@@ -10,32 +10,12 @@ import {
 } from 'react-native';
 import i18n from '../localization/i18n';
 import { useTheme } from '../theme/ThemeContext';
-
-const WEEKDAYS = [i18n.t('sunday'), i18n.t('monday'), i18n.t('tuesday'), 
-  i18n.t('wednesday'), i18n.t('thursday'), i18n.t('friday'), i18n.t('saturday')];
+import { useLanguage } from '../localization/LanguageContext';
 
 type DayItem = {
   date: Date;
   label: string;
   number: number;
-};
-
-const MONTH_LABELS = [
-  i18n.t('january'), i18n.t('february'), i18n.t('march'), i18n.t('april'), i18n.t('may'), i18n.t('june'),
-  i18n.t('july'), i18n.t('august'), i18n.t('september'), i18n.t('october'), i18n.t('november'), i18n.t('december'),
-];
-
-const getMonthDays = (year: number, month: number): DayItem[] => {
-  return Array.from({ length: new Date(year, month + 1, 0).getDate() }, (_, i) => {
-    const date = new Date(year, month, i + 1);
-    date.setHours(0, 0, 0, 0);
-
-    return {
-      date,
-      label: WEEKDAYS[date.getDay()],
-      number: date.getDate(),
-    };
-  });
 };
 
 type Props = {
@@ -44,7 +24,30 @@ type Props = {
 
 export default function MonthSlider({ onDateSelect }: Props) {
   const { mode, setMode, theme } = useTheme();
+  const { language } = useLanguage();
   const today = new Date();
+
+  const WEEKDAYS = useMemo(() => [
+    i18n.t('sunday'), i18n.t('monday'), i18n.t('tuesday'),
+    i18n.t('wednesday'), i18n.t('thursday'), i18n.t('friday'), i18n.t('saturday')
+  ], [language]);
+
+  const MONTH_LABELS = useMemo(() => [
+    i18n.t('january'), i18n.t('february'), i18n.t('march'), i18n.t('april'), i18n.t('may'), i18n.t('june'),
+    i18n.t('july'), i18n.t('august'), i18n.t('september'), i18n.t('october'), i18n.t('november'), i18n.t('december'),
+  ], [language]);
+
+  const getMonthDays = (year: number, month: number, weekdays: string[]): DayItem[] => {
+    return Array.from({ length: new Date(year, month + 1, 0).getDate() }, (_, i) => {
+      const date = new Date(year, month, i + 1);
+      date.setHours(0, 0, 0, 0);
+      return {
+        date,
+        label: weekdays[date.getDay()],
+        number: date.getDate(),
+      };
+    });
+  };
 
   const years = useMemo(() => {
     const startYear = today.getFullYear() - 2;
@@ -58,7 +61,7 @@ export default function MonthSlider({ onDateSelect }: Props) {
 
   const [year, setYear] = useState(today.getFullYear());
   const [month, setMonth] = useState(today.getMonth());
-  const days = useMemo(() => getMonthDays(year, month), [year, month]);
+  const days = useMemo(() => getMonthDays(year, month, WEEKDAYS), [year, month, WEEKDAYS]);
 
   const [selectedIndex, setSelectedIndex] = useState(() => {
     if (year === today.getFullYear() && month === today.getMonth()) {

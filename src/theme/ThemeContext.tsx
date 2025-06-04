@@ -25,7 +25,12 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<Theme>(lightTheme);
 
   const applyTheme = (modeToApply: ThemeMode) => {
-    const scheme = modeToApply === 'system' ? systemColorScheme : modeToApply;
+    let scheme: 'light' | 'dark' = 'light';
+    if (modeToApply === 'system') {
+      scheme = systemColorScheme === 'dark' ? 'dark' : 'light';
+    } else {
+      scheme = modeToApply;
+    }
     setTheme(scheme === 'dark' ? darkTheme : lightTheme);
   };
 
@@ -44,6 +49,21 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     };
     loadStoredMode();
   }, [systemColorScheme]);
+
+  useEffect(() => {
+    if (mode === 'system') {
+      applyTheme('system');
+    }
+  }, [systemColorScheme, mode]);
+
+  useEffect(() => {
+    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
+      if (mode === 'system') {
+        setTheme(colorScheme === 'dark' ? darkTheme : lightTheme);
+      }
+    });
+    return () => subscription.remove();
+  }, [mode]);
 
   return (
     <ThemeContext.Provider value={{ theme, mode, setMode }}>

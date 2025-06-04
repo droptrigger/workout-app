@@ -80,6 +80,7 @@ export default {
     theme: '主题',
     lightTheme: '☀️ 光',
     darkTheme: '🌑 黑暗的',
+    systemTheme: '👀 系统',
 
     language: '语言',
 

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useLayoutEffect } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import MonthSlider from '../components/MonthSlider';
 import TodayWorkoutList from '../components/TodayWorkoutList';
@@ -17,7 +17,12 @@ const WorkoutsScreen = ({ navigation }: WorkoutsScreenProps) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [refreshFlag, setRefreshFlag] = useState(0);
   const { mode, setMode, theme } = useTheme();
+  const { language } = require('../localization/LanguageContext').useLanguage();
   
+  useLayoutEffect(() => {
+    navigation.setOptions({ title: i18n.t('trains') });
+  }, [navigation, language]);
+
   const handleCreateWorkout = async (patternId: number, date: Date) => {
     try {
       const year = date.getFullYear();

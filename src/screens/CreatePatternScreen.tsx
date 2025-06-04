@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import {
   View,
   Text,
@@ -8,16 +8,38 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
+  Keyboard
 } from 'react-native';
 import { createPattern } from '../db/patternUtils';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import i18n from '../localization/i18n';
 import { useTheme } from '../theme/ThemeContext';
+import { useLanguage } from '../localization/LanguageContext';
 
 export default function CreatePatternScreen({ navigation }: any) {
     const [name, setName] = useState('');
     const [exercises, setExercises] = useState<string[]>(['']);
     const { mode, setMode, theme } = useTheme();
+    const { language } = useLanguage();
+    const [keyboardVisible, setKeyboardVisible] = useState(false);
+    const scrollRef = useRef<KeyboardAwareScrollView>(null);
+
+    useLayoutEffect(() => {
+      navigation.setOptions({ title: i18n.t('addTemplate') });
+    }, [navigation, language]);
+
+    useEffect(() => {
+      const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+        setKeyboardVisible(true);
+      });
+      const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+        setKeyboardVisible(false);
+      });
+      return () => {
+        showSubscription.remove();
+        hideSubscription.remove();
+      };
+    }, []);
 
     const updateExercise = (index: number, value: string) => {
         const updated = [...exercises];
@@ -142,10 +164,10 @@ export default function CreatePatternScreen({ navigation }: any) {
         >
         <View style={styles.container}>
             <KeyboardAwareScrollView
+                ref={scrollRef}
                 style={styles.scrollContainer}
                 contentContainerStyle={styles.scrollContentContainer}
                 enableOnAndroid
-                extraScrollHeight={80}
                 keyboardShouldPersistTaps="handled"
             >
             <View style={styles.card}>
@@ -154,7 +176,7 @@ export default function CreatePatternScreen({ navigation }: any) {
                     style={styles.input}
                     value={name}
                     onChangeText={(text) => {
-                    setName(text);
+                        setName(text);
                     }}
                     placeholder={i18n.t('placeholderNameTemplate')}
                     placeholderTextColor={theme.placeholderText}
@@ -172,6 +194,9 @@ export default function CreatePatternScreen({ navigation }: any) {
                         placeholder={`${i18n.t('placeholderExercisesTempalte')}${index + 1}`}
                         multiline
                         placeholderTextColor={theme.placeholderText}
+                        onFocus={event => {
+                          scrollRef.current?.scrollToFocusedInput(event.target, 170);
+                        }}
                     />
                     <TouchableOpacity onPress={() => removeExercise(index)} style={styles.deleteButton}>
                         <Text style={styles.deleteButtonText}>✕</Text>
@@ -185,9 +210,11 @@ export default function CreatePatternScreen({ navigation }: any) {
             </View>
             </KeyboardAwareScrollView>
             
-            <TouchableOpacity style={styles.button} onPress={handleCreate}>
+            {!keyboardVisible && (
+              <TouchableOpacity style={styles.button} onPress={handleCreate}>
                 <Text style={styles.buttonText}>{i18n.t('confirm')}</Text>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            )}
         </View>
         </KeyboardAvoidingView>
     );

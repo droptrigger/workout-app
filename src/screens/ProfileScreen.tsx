@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import {
     View,
     Text,
@@ -16,6 +16,7 @@ import { ProfileStats, Pattern } from '../types/types';
 import { useFocusEffect } from '@react-navigation/native';
 import i18n from '../localization/i18n';
 import { useTheme } from '../theme/ThemeContext';
+import { useLanguage } from '../localization/LanguageContext';
 
 export default function ProfileScreen({ navigation }: any) {
     const [stats, setStats] = useState<ProfileStats>({
@@ -24,6 +25,11 @@ export default function ProfileScreen({ navigation }: any) {
     const [patterns, setPatterns] = useState<Pattern[]>([]);
     const [loading, setLoading] = useState(true);
     const { mode, setMode, theme } = useTheme();
+    const { language, setLanguage } = useLanguage();
+
+    useLayoutEffect(() => {
+      navigation.setOptions({ title: i18n.t('profile') });
+    }, [navigation, language]);
 
     function ThemeToggle() {
         const modes: { label: string; value: 'light' | 'dark' | 'system' }[] = [
@@ -31,15 +37,23 @@ export default function ProfileScreen({ navigation }: any) {
             { label: i18n.t('darkTheme'), value: 'dark' },
         ];
 
+        const handlePress = (value: 'light' | 'dark' | 'system') => {
+            if (mode === value) {
+                setMode('system');
+            } else {
+                setMode(value);
+            }
+        };
+
         return (
             <View style={{ marginBottom: 5 }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 18, color: theme.header, marginBottom: 10 }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 18, color: theme.header, marginBottom: 2 }}>
                 {i18n.t('theme')}
             </Text>
             {modes.map((m) => (
                 <TouchableOpacity
                 key={m.value}
-                onPress={() => setMode(m.value)}
+                onPress={() => handlePress(m.value)}
                 style={{
                     padding: 10,
                     backgroundColor: mode === m.value ? theme.primary : theme.card,
@@ -52,6 +66,38 @@ export default function ProfileScreen({ navigation }: any) {
                 </Text>
                 </TouchableOpacity>
             ))}
+            </View>
+        );
+    }
+
+    function LanguageToggle() {
+        const languages = [
+            { label: '🇷🇺 Русский', value: 'ru' },
+            { label: '🇺🇸 English', value: 'en' },
+            { label: '🇨🇳 中文', value: 'zh' },
+        ];
+
+        return (
+            <View style={{ marginBottom: 5 }}>
+                <Text style={{ fontWeight: 'bold', fontSize: 18, color: theme.header, marginBottom: 2 }}>
+                    {i18n.t('language')}
+                </Text>
+                {languages.map((l) => (
+                    <TouchableOpacity
+                        key={l.value}
+                        onPress={() => setLanguage(l.value)}
+                        style={{
+                            padding: 10,
+                            backgroundColor: language === l.value ? theme.primary : theme.card,
+                            borderRadius: 8,
+                            marginVertical: 4,
+                        }}
+                    >
+                        <Text style={{ color: language === l.value ? '#fff' : theme.text }}>
+                            {l.label}
+                        </Text>
+                    </TouchableOpacity>
+                ))}
             </View>
         );
     }
@@ -124,11 +170,11 @@ export default function ProfileScreen({ navigation }: any) {
             marginHorizontal: 16,
             padding: 16,
             borderRadius: 12,
-            marginBottom: 20,
+            marginBottom: 10,
         },
         patternsContainer: {
             marginHorizontal: 16,
-            marginBottom: 15,
+            marginBottom: 10,
             flex: 1
         },
         statItem: {
@@ -150,7 +196,7 @@ export default function ProfileScreen({ navigation }: any) {
         sectionTitle: {
             fontSize: 18,
             fontWeight: 'bold',
-            marginBottom: 12,
+            marginBottom: 10,
             color: theme.header
         },
         emptyText: {
@@ -184,6 +230,10 @@ export default function ProfileScreen({ navigation }: any) {
 
                 <View style={styles.patternsContainer}>
                     <ThemeToggle />
+                </View>
+
+                <View style={styles.patternsContainer}>
+                    <LanguageToggle />
                 </View>
 
                 <View style={styles.patternsContainer}>

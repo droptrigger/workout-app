@@ -20,7 +20,6 @@
     "android": {
       "package": "train.app.trainer",
       "versionCode": 1,
-      
       "adaptiveIcon": {
         "foregroundImage": "src/assets/icon.png",
         "backgroundColor": "#ffffff"
@@ -32,6 +31,11 @@
     },
     "plugins": [
       "expo-sqlite"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "967f6b17-ff14-4bd4-a607-af53183b3c1b"
+      }
+    }
   }
 }

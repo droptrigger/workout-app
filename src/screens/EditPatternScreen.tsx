@@ -1,5 +1,5 @@
 // src/screens/EditPatternScreen.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import {
   View,
   Text,
@@ -9,11 +9,13 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
+  Keyboard
 } from 'react-native';
 import { updatePattern, getPatternWithExercises } from '../db/patternUtils';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import i18n from '../localization/i18n';
 import { useTheme } from '../theme/ThemeContext';
+import { useLanguage } from '../localization/LanguageContext';
 
 export default function EditPatternScreen({ navigation, route }: any) {
     const { pattern } = route.params;
@@ -21,7 +23,14 @@ export default function EditPatternScreen({ navigation, route }: any) {
     const [exercises, setExercises] = useState<string[]>([]);
     const [initialExercises, setInitialExercises] = useState<string[]>([]);
     const { mode, setMode, theme } = useTheme();
+    const { language } = useLanguage();
+    const [keyboardVisible, setKeyboardVisible] = useState(false);
+    const scrollRef = useRef<KeyboardAwareScrollView>(null);
     
+    useLayoutEffect(() => {
+      navigation.setOptions({ title: i18n.t('templateEditing') });
+    }, [navigation, language]);
+
     useEffect(() => {
         const loadExercises = async () => {
             const exList = await getPatternWithExercises(pattern.id);
@@ -30,6 +39,19 @@ export default function EditPatternScreen({ navigation, route }: any) {
             setInitialExercises(exercises);
         };
         loadExercises();
+    }, []);
+
+    useEffect(() => {
+      const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+        setKeyboardVisible(true);
+      });
+      const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+        setKeyboardVisible(false);
+      });
+      return () => {
+        showSubscription.remove();
+        hideSubscription.remove();
+      };
     }, []);
 
     const updateExercise = (index: number, value: string) => {
@@ -157,10 +179,11 @@ export default function EditPatternScreen({ navigation, route }: any) {
         >
             <View style={styles.container}>
                 <KeyboardAwareScrollView
+                    ref={scrollRef}
                     style={styles.scrollContainer}
                     contentContainerStyle={styles.scrollContentContainer}
                     enableOnAndroid
-                    extraScrollHeight={80}
+                    extraScrollHeight={120}
                     keyboardShouldPersistTaps="handled"
                 >
                     <View style={styles.card}>
@@ -183,6 +206,9 @@ export default function EditPatternScreen({ navigation, route }: any) {
                                     onChangeText={(text) => updateExercise(index, text)}
                                     placeholder={`${i18n.t('placeholderExercisesTempalte')} ${index + 1}`}
                                     multiline
+                                    onFocus={event => {
+                                      scrollRef.current?.scrollToFocusedInput(event.target, 170);
+                                    }}
                                 />
                                 <TouchableOpacity 
                                     onPress={() => removeExercise(index)} 
@@ -198,10 +224,11 @@ export default function EditPatternScreen({ navigation, route }: any) {
                         </TouchableOpacity>
                     </View>
                 </KeyboardAwareScrollView>
-
-                <TouchableOpacity style={styles.button} onPress={handleUpdate}>
+                {!keyboardVisible && (
+                  <TouchableOpacity style={styles.button} onPress={handleUpdate}>
                     <Text style={styles.buttonText}>{i18n.t('saveChangesEdit')}</Text>
-                </TouchableOpacity>
+                  </TouchableOpacity>
+                )}
             </View>
         </KeyboardAvoidingView>
     );

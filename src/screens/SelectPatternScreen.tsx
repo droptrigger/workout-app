@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import {
     View,
     Text,
@@ -11,12 +11,14 @@ import { getAllPatterns } from '../db/patternUtils';
 import { Pattern } from '../types/types';
 import i18n from '../localization/i18n';
 import { useTheme } from '../theme/ThemeContext';
+import { useLanguage } from '../localization/LanguageContext';
 
 const SelectPatternScreen = ({ navigation, route }: any) => {
     const [patterns, setPatterns] = useState<Pattern[]>([]);
     const [loading, setLoading] = useState(true);
     const [processing, setProcessing] = useState(false);
     const { mode, setMode, theme } = useTheme();
+    const { language } = useLanguage();
     
     const { onSelect } = route.params || {};
 
@@ -33,6 +35,10 @@ const SelectPatternScreen = ({ navigation, route }: any) => {
         };
         loadPatterns();
     }, []);
+
+    useLayoutEffect(() => {
+      navigation.setOptions({ title: i18n.t('templateSelection') });
+    }, [navigation, language]);
 
     const handleSelectPattern = async (pattern: Pattern) => {
         if (!onSelect) return;

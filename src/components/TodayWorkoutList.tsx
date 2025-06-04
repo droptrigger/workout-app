@@ -155,7 +155,7 @@ const TodayWorkoutList: React.FC<Props> = ({ selectedDate, onCreateWorkout, refr
     },
     createButton: {
       backgroundColor: '#4CAF50',
-      padding: 12,
+      padding: 15,
       borderRadius: 8,
       width: '100%',
     },

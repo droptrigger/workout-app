@@ -7,95 +7,80 @@ import ProfileIcon from '../components/icons/ProfileIcon';
 import CreatePatternScreen from '../screens/CreatePatternScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import i18n from '../localization/i18n';
-import { ThemeProvider, useTheme } from '../theme/ThemeContext';
+import { useTheme } from '../theme/ThemeContext';
 import WorkoutsScreen from '../screens/WorkoutsScreen';
 import SelectPatternScreen from '../screens/SelectPatternScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import EditPatternScreen from '../screens/EditPatternScreen';
 import { StatusBar } from 'react-native';
+import { useLanguage } from '../localization/LanguageContext';
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+const WorkoutsStack = createNativeStackNavigator();
+const ProfileStack = createNativeStackNavigator();
+const AddTemplateStack = createNativeStackNavigator();
 
-const ProfileStack = () => {
-  const { mode, setMode, theme } = useTheme();
-
+function WorkoutsStackScreen() {
+  const { theme } = useTheme();
   return (
-    <Stack.Navigator>
-      <Stack.Screen 
-        name="ProfileMain" 
-        component={ProfileScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen 
-        name="EditPattern" 
-        component={EditPatternScreen}
-          options={{
-            title: i18n.t('templateEditing'),
-            headerStyle: {
-              backgroundColor: theme.card,
-            },
-            headerTitleStyle: {
-              fontWeight: 'bold',
-              color: theme.header
-            },
-          }}
-      />
-    </Stack.Navigator>
-  )
+    <WorkoutsStack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerStyle: { backgroundColor: theme.card },
+        headerTitleStyle: { fontSize: 20, fontWeight: 'bold', color: theme.header },
+      }}
+    >
+      <WorkoutsStack.Screen name="WorkoutsMain" component={WorkoutsScreen} options={() => ({ title: i18n.t('trains') })} />
+      <WorkoutsStack.Screen name="SelectPattern" component={SelectPatternScreen} options={() => ({ title: i18n.t('templateSelection') })} />
+    </WorkoutsStack.Navigator>
+  );
 }
 
-const WorkoutStack = () => {
-  const { mode, setMode, theme } = useTheme();
-
+function ProfileStackScreen() {
+  const { theme } = useTheme();
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="WorkoutMain"
-        component={WorkoutsScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="SelectPattern"
-        component={SelectPatternScreen}
-        options={{
-          title: i18n.t('templateSelection'),
-          headerStyle: {
-            backgroundColor: theme.card,
-          },
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            color: theme.header
-          },
-        }}
-      />
-    </Stack.Navigator>
+    <ProfileStack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerStyle: { backgroundColor: theme.card },
+        headerTitleStyle: { fontSize: 20, fontWeight: 'bold', color: theme.header },
+      }}
+    >
+      <ProfileStack.Screen name="ProfileMain" component={ProfileScreen} options={() => ({ title: i18n.t('profile') })} />
+      <ProfileStack.Screen name="EditPattern" component={EditPatternScreen} options={() => ({ title: i18n.t('templateEditing') })} />
+    </ProfileStack.Navigator>
   );
-};
+}
+
+function AddTemplateStackScreen() {
+  const { theme } = useTheme();
+  return (
+    <AddTemplateStack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerStyle: { backgroundColor: theme.card },
+        headerTitleStyle: { fontSize: 20, fontWeight: 'bold', color: theme.header },
+      }}
+    >
+      <AddTemplateStack.Screen name="AddTemplateMain" component={CreatePatternScreen} options={() => ({ title: i18n.t('addTemplate') })} />
+    </AddTemplateStack.Navigator>
+  );
+}
 
 const MainNavigation = () => {
   const { mode, setMode, theme } = useTheme();
+  const { language } = useLanguage();
 
   return (
     <NavigationContainer>
-        <StatusBar
-            barStyle={mode === 'dark' ? 'light-content' : 'dark-content'}
-        />
+      <StatusBar barStyle={mode === 'dark' ? 'light-content' : 'dark-content'} />
       <Tab.Navigator
         screenOptions={({ route }) => ({
-          headerTitleAlign: 'center',
-          headerStyle: {
-            backgroundColor: theme.card,
-          },
-          headerTitleStyle: {
-            fontSize: 16,
-            fontWeight: 'bold',
-            color: theme.header,
-          },
+          headerShown: false,
           tabBarIcon: ({ color, size }) => {
-            if (route.name === i18n.t('trains')) return <WorkoutsIcon color={color} size={size} />;
-            if (route.name === i18n.t('addTemplate')) return <PlusIcon color={color} size={size} />;
-            if (route.name === i18n.t('profile')) return <ProfileIcon color={color} size={size} />;
+            if (route.name === 'WorkoutsTab') return <WorkoutsIcon color={color} size={size} />;
+            if (route.name === 'AddTemplate') return <PlusIcon color={color} size={size} />;
+            if (route.name === 'ProfileTab') return <ProfileIcon color={color} size={size} />;
             return null;
           },
           tabBarActiveTintColor: theme.activeIconColor,
@@ -108,9 +93,9 @@ const MainNavigation = () => {
           },
         })}
       >
-        <Tab.Screen name={i18n.t('trains')} component={WorkoutStack} />
-        <Tab.Screen name={i18n.t('addTemplate')} component={CreatePatternScreen} />
-        <Tab.Screen name={i18n.t('profile')} component={ProfileStack} />
+        <Tab.Screen name="WorkoutsTab" component={WorkoutsStackScreen} options={{ tabBarLabel: i18n.t('trains') }} />
+        <Tab.Screen name="AddTemplate" component={AddTemplateStackScreen} options={{ tabBarLabel: i18n.t('addTemplate') }} />
+        <Tab.Screen name="ProfileTab" component={ProfileStackScreen} options={{ tabBarLabel: i18n.t('profile') }} />
       </Tab.Navigator>
     </NavigationContainer>
   );

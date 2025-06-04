@@ -6,6 +6,7 @@ import MainNavigation from './src/components/MainNavigation';
 import { PrivacyPolicyScreen, CURRENT_PRIVACY_VERSION } from './src/screens/PrivacyPolicyScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from './src/components/SplashScreen';
+import { LanguageProvider } from './src/localization/LanguageContext';
 
 export default function App() {
   const [dbReady, setDbReady] = useState(false);
@@ -34,18 +35,20 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider>
-      <MainNavigation />
+    <LanguageProvider>
+      <ThemeProvider>
+        <MainNavigation />
 
-      <Modal
-        visible={!acceptedPolicy}
-        animationType="fade"
-        transparent={true}
-        onRequestClose={() => {
-        }}
-      >
-        <PrivacyPolicyScreen onAccept={() => setAcceptedPolicy(true)} />
-      </Modal>
-    </ThemeProvider>
+        <Modal
+          visible={!acceptedPolicy}
+          animationType="fade"
+          transparent={true}
+          onRequestClose={() => {
+          }}
+        >
+          <PrivacyPolicyScreen onAccept={() => setAcceptedPolicy(true)} />
+        </Modal>
+      </ThemeProvider>
+    </LanguageProvider>
   );
 }
